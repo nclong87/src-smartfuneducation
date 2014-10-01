@@ -1,0 +1,13 @@
+/** General styles (scope: all of lesson) **/
+#intro_top {
+color: #999;
+display: inline-block;
+font-weight: bold;
+margin-bottom: 5px;
+text-align: left;
+}
+#intro_bottom {
+display: inline-block;
+margin-bottom: 10px; 
+text-align: left;
+}
