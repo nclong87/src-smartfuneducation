@@ -401,3 +401,10 @@ function rtw_debug($data,$exit = true) {
         die;
     }
 }
+
+function rtw_user_enrolled_event($eventdata) {
+    // Do what you need to do with the course.
+    echo '<pre>';
+    print_r($eventdata);
+    die;
+}
