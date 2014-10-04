@@ -41,10 +41,10 @@ if ($id) {
 } else {
     error('You must specify a course_module ID or an instance ID');
 }
-
 require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
-
+\mod_rtw\core\player::getInstance()->init($USER->id, $cm->course);
+//\mod_rtw\core\log::getInstance()->log(array('hello','1234'));
 //add_to_log($course->id, 'rtw', 'view', "view.php?id={$cm->id}", $rtw->name, $cm->id);
 
 /// Print the page header

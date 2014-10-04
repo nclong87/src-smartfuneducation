@@ -38,3 +38,5 @@ $string['rtwname_help'] = 'This is the content of the help tooltip associated wi
 $string['rtw'] = 'rtw';
 $string['pluginadministration'] = 'rtw administration';
 $string['pluginname'] = 'rtw';
+
+$string['eventdebug'] = 'Debug';

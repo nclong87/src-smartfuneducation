@@ -38,6 +38,15 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
         echo $this->renderPage();
     }
     
+    /**
+     * 
+     * @param string $name
+     * @param mix $value
+     */
+    protected function set_var($name,$value) {
+        $this->_variables[$name] = $value;
+    }
+    
     abstract function render_index();
 }
 
