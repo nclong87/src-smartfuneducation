@@ -393,3 +393,11 @@ function rtw_extend_navigation(navigation_node $navref, stdclass $course, stdcla
  */
 function rtw_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $rtwnode=null) {
 }
+
+function rtw_debug($data,$exit = true) {
+    echo '<pre>';
+    print_r($data);
+    if($exit) {
+        die;
+    }
+}
