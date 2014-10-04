@@ -27,7 +27,6 @@
  */
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
-
 $id = optional_param('id', 0, PARAM_INT); // course_module ID, or
 $n  = optional_param('n', 0, PARAM_INT);  // rtw instance ID - it should be named as the first character of the module
 
@@ -46,7 +45,7 @@ if ($id) {
 require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
 
-add_to_log($course->id, 'rtw', 'view', "view.php?id={$cm->id}", $rtw->name, $cm->id);
+//add_to_log($course->id, 'rtw', 'view', "view.php?id={$cm->id}", $rtw->name, $cm->id);
 
 /// Print the page header
 
@@ -56,14 +55,13 @@ $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
 $PAGE->set_pagelayout('login');
 
-// other things you may want to set - remove if not needed
-//$PAGE->set_cacheable(false);
-//$PAGE->set_focuscontrol('some-html-id');
-//$PAGE->add_body_class('rtw-'.$somevar);
-
-$rtwoutput = $PAGE->get_renderer('mod_rtw');
-$rtwoutput->header();
 //$intro = new rtw_intro(12345);
 //echo $rtwoutput->render($intro);
-$rtwoutput->render_rtw_intro();
+$controller = strtolower(optional_param('c', 'intro', PARAM_TEXT));
+$action = 'render_'.strtolower(optional_param('a', 'index', PARAM_TEXT));
+require "renderer_base.php";
+require "cores/{$controller}/renderer.php";
+$rtwoutput = $PAGE->get_renderer('mod_rtw');
+$rtwoutput->header();
+$rtwoutput->{$action}();
 $rtwoutput->footer();
