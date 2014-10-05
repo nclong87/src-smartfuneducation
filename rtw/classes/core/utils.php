@@ -40,5 +40,13 @@ class utils {
     public static function writeFile($file_name,$content) {
         file_put_contents(ROOT_DIR . '/data/'.$file_name, $content);
     }
+    
+    public static function array2object($array) {
+        $object = new \stdClass();
+        foreach ($array as $key => $value) {
+            $object->{$key} = $value;
+        }
+        return $object;
+    }
 
 }

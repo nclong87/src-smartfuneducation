@@ -32,7 +32,7 @@ abstract class base {
             throw new Exception('Error system');
         }
         $row = $this->_db->get_record_sql('SELECT LAST_INSERT_ID() as id');
-        return intval($row['id']);
+        return intval($row->id);
     }
     
     /**
