@@ -1,3 +1,4 @@
+[Test update]
 The following steps should get you up and running with
 this module template code.
 
