@@ -10,9 +10,5 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         $this->doRender();
     }
     
-    public function render_add() {
-        $this->_file = 'add.php';
-        $this->doRender();
-    }
 
 }
