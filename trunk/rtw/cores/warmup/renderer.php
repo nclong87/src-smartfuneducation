@@ -1,4 +1,6 @@
 <?php
+use mod_rtw\db\warmup;
+use mod_rtw\core\log;
 class mod_rtw_renderer extends mod_rtw_renderer_base {
     public function __construct(\moodle_page $page, $target) {
         parent::__construct($page, $target);
@@ -18,7 +20,8 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             'player_game_id' => 1,
             'group_id' => 4
         );
-        \mod_rtw\db\warmup::getInstance()->insert($data);
+        log::getInstance()->log(array($data));
+        //warmup::getInstance()->insert($data);
         $this->set_var('player_info', \mod_rtw\core\player::getInstance()->getPlayerInfo());
         $this->_file = 'add.php';
         $this->doRender();
