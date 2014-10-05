@@ -4,7 +4,8 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
     public function __construct(\moodle_page $page, $target) {
         global $cm;
         parent::__construct($page, $target);
-        define('module_static_url', $this->output->pix_url('', 'rtw'));
+        $pix_url = $this->output->pix_url('', 'rtw');
+        define('module_static_url', $pix_url.'=');
         $this->course = $cm;
     }
     protected $course;
