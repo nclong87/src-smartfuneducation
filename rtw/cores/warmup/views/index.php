@@ -1,7 +1,7 @@
 <div style="display: block;text-align: center">
-     This is warmup page, test = <?php echo $test?>
-     <form action="" method="post">
-         <input type="text" name="test" value=""/>
-         <input type="submit"  value="Submit"/>
-     </form>
+    <h2><?php echo $coursename;?> - Khởi động</h2>
+    Nhận diện thành viên nhóm mình
+    <form id="assignform" action="view.php?id=<?php echo $id;?>&c=warmup&a=guess" method="post">
+    	<input type="submit" value="Bắt đầu tham gia"/>
+    </form>
 </div>
