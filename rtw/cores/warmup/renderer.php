@@ -21,6 +21,14 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
     	$coursename = optional_param('coursename', '', PARAM_TEXT);
     	$this->set_var('coursename', $COURSE->fullname);
     	
+    	$currentgroup=get_current_group($COURSE->id);
+    	$isgrouped = true;
+    	if(empty($currentgroup))
+    		$isgrouped = false;
+    	
+    	$isbelonggroup = optional_param('isbelonggroup', '', PARAM_BOOL);
+    	$this->set_var('isbelonggroup', $isgrouped);
+    	
     	$this->doRender();
     }
     
