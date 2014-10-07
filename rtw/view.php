@@ -54,6 +54,7 @@ $PAGE->set_title(format_string($rtw->name));
 $PAGE->requires->js('/mod/rtw/js/jquery-2.1.1.min.js', true);
 $PAGE->requires->js('/mod/rtw/js/jquery.colorbox-min.js', true);
 $PAGE->requires->js('/mod/rtw/js/jquery.blockUI.js', true);
+$PAGE->requires->js('/mod/rtw/js/utils.js', true);
 $PAGE->requires->css('/mod/rtw/media/colorbox.css', true);
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
