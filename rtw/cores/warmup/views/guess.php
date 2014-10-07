@@ -2,10 +2,45 @@
 	global $OUTPUT;
 	global $USER;
 ?>
+<script language="Javascript">
+function SelectMoveRows(SS1,SS2)
+{
+    var SelID='';
+    var SelText='';
+    // Move rows from SS1 to SS2 from bottom to top
+    for (i=SS1.options.length - 1; i>=0; i--)
+    {
+        if (SS1.options[i].selected == true)
+        {
+            SelID=SS1.options[i].value;
+            SelText=SS1.options[i].text;
+            var newRow = new Option(SelText,SelID);
+            SS2.options[SS2.length]=newRow;
+            SS1.options[i]=null;
+        }
+    }
+    UpdateHidMembers(document.assignform.groupmembers);
+}
+function UpdateHidMembers(SelList)
+{
+    var ID='';
+    for (x=0; x < SelList.length; x++)
+    {
+    	// Swap rows
+        if(ID=='')
+           ID = SelList[x].value;
+        else
+           ID = ID + ";" + SelList[x].value;
+    }
+    document.assignform.hidMembers.value=ID;
+}
+
+</script>
 <div style="display: block;text-align: center">
 	<h3><?php echo $coursename;?> - Khởi động</h3>
 	 Nhận diện thành viên nhóm mình: <br/>thực hiện bằng cách chọn thành viên nhóm từ danh sách lớp và chuyển sang nhóm của bạn. Để kết thúc phần này, nhất nút "Gửi dự đoán".
-     <form id="assignform" style="width:850px; margin:0 auto;" action="" method="post">
+     <form id="assignform" name="assignform" style="width:850px; margin:0 auto;" action="view.php?id=<?php echo $id;?>&c=warmup&a=send" method="post">
+     	<input type="hidden" name="hidMembers" id="hidMembers" value="">
      	<table id="assigningrole" summary="" class="admintable roleassigntable generaltable" cellspacing="0">
      	<tr>
      		<td id="existingcell" width="350">
@@ -23,12 +58,16 @@
 		 	</td>
 		 	<td id="buttonscell" width="100">
 	          <div id="addcontrols">
-	          	<input onclick="move('right');" name="remove" id="remove" type="button" value="<?php echo get_string('add').'&nbsp;'.$OUTPUT->rarrow(); ?>" title="<?php print_string('add'); ?>" />
+	          	<input 
+	          	onclick="SelectMoveRows(document.assignform.students,document.assignform.groupmembers)"
+	          	name="remove" id="remove" type="button" value="<?php echo get_string('add').'&nbsp;'.$OUTPUT->rarrow(); ?>" title="<?php print_string('add'); ?>" />
 	              
 	          </div>
 	
 	          <div id="removecontrols">
-					<input onclick="move('left');" name="add" id="add" type="button" value="<?php echo $OUTPUT->larrow().'&nbsp;'.get_string('remove'); ?>" title="<?php print_string('remove'); ?>" /><br />	              
+					<input 
+					onclick="SelectMoveRows(document.assignform.groupmembers,document.assignform.students)" 
+					name="add" id="add" type="button" value="<?php echo $OUTPUT->larrow().'&nbsp;'.get_string('remove'); ?>" title="<?php print_string('remove'); ?>" /><br />	              
 	          </div>
 		 	</td>
 		 	<td id="potentialcell">
@@ -52,25 +91,6 @@
         </table>
      </form>
 </div>
-<script>
-//function to move an element from a box to the other
-function move(sens)
-{               
-	var i, sourceSel, targetSel; 
-
-	  if (sens == 'right') {
-	    sourceSel = document.getElementById('students'); 
-	    targetSel = document.getElementById('groupmembers');
-	  } else {
-	    sourceSel = document.getElementById('groupmembers'); 
-	    targetSel = document.getElementById('students');
-	  }
-
-	  i = sourceSel.options.length;
-	  while (i--) {
-	    if (sourceSel.options[i].selected) {
-	      targetSel.appendChild(sourceSel.options[i]);
-	    }
-	  }
-}
-	</script>
+<script language="Javascript">
+	UpdateHidMembers(document.assignform.groupmembers);
+</script>
