@@ -7,10 +7,10 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
         parent::__construct($page, $target);
         $pix_url = $this->output->pix_url('', 'rtw');
         define('module_static_url', $pix_url.'=');
-        $this->course = $cm;
+        $this->course_module = $cm;
         $this->user = $USER;
     }
-    protected $course;
+    protected $course_module;
     protected $user;
     protected $_PATH;
     protected $_file;
@@ -27,7 +27,7 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
         if(!isset($this->_PATH) || !isset($this->_file)) {
             throw new Exception('Error System');
         }
-        $this->_variables['course'] = $this->course;
+        $this->_variables['course_module'] = $this->course_module;
         foreach ($this->_variables as $variableName => $variableValue) {
             $$variableName = $variableValue;
         }

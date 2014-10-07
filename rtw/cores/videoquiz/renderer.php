@@ -45,7 +45,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
                 throw new coding_exception('Video not found');
             }
             $video->game_player_id = $current_game->id;
-            //$quba = question_engine::make_questions_usage_by_activity('mod_rtw', \context_module::instance($this->course->id));
+            //$quba = question_engine::make_questions_usage_by_activity('mod_rtw', \context_module::instance($this->course_module->id));
             //$quba->set_preferred_behaviour('');
             //question_engine::save_questions_usage_by_activity($quba);
             $category = question_categories::getInstance()->findCategoryByLevelAndQuest($player_info->current_level, 'videoquiz');
@@ -79,5 +79,16 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         $this->doRender();
     }
     
-
+    public function render_test() {
+        global $COURSE;
+        rtw_debug($COURSE);
+        $this->_file = 'test.php';
+        $this->doRender();
+    }
+    
+    public function render_query() {
+        
+        $this->_file = 'query.php';
+        $this->doRender();
+    }
 }

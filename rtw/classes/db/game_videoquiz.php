@@ -28,7 +28,7 @@ class game_videoquiz extends base {
      * 
      * @param number $player_level
      * @param number $num
-     * @return mix id,embed_code,`level`,status,length
+     * @return mix id,embed_code,url,`level`,status,length
      */
     public function getRandomVideo($player_level,$num = 1) {
         return $this->_db->get_record_sql('select * from mdl_rtw_videoquizs where `level` = ? and status = 1 order by rand() limit 0,'.$num,array($player_level));
@@ -37,7 +37,7 @@ class game_videoquiz extends base {
     /**
      * 
      * @param number $game_player_id
-     * @return mix id,embed_code,`level`,status,length
+     * @return mix id,embed_code,url,`level`,status,length
      */
     public function getVideoByPlayerGameId($game_player_id) {
         return $this->_db->get_record_sql('select * from mdl_rtw_videoquizs t0 left join mdl_rtw_game_videoquiz t1 on t0.id = t1.videoquiz_id where t1.game_player_id = ? limit 0,1',array($game_player_id));
