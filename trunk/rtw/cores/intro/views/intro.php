@@ -16,5 +16,5 @@
         <p>Now start your first quest: Team up!</p>
         <p>You have to team up a five or more members. Remember, in order to pay for each KEY, the AVERAGE amount of coin of your team need to be sufficient and ALL the members must reach the same place (the quest to receive the Key). Then this amount will be reduced in each player account. So the players need to cooperate well together!!! </p>
     </div>
-    <button onclick="location.href='/mod/rtw/view.php?id=<?php echo $course->id ?>&c=map'">Play game</button>
+    <button onclick="location.href='/mod/rtw/view.php?id=<?php echo $course_module->id ?>&c=map'">Play game</button>
 </div>

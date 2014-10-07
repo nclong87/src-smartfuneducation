@@ -5,7 +5,7 @@
     width="640"
     height="390"
     controls="controls">
-    <source src="http://local.moodle/pluginfile.php/101/mod_resource/content/1/Lop hoc vui nhon.mp4" type="video/mp4">
+    <source src="<?php echo $video->url?>" type="video/mp4">
 </video>
 </div>
 <script>
@@ -22,8 +22,21 @@ function count() {
     }
     setTimeout("count()",1000);
 }
+function doQuery() {
+    $.ajax({
+        type: 'GET',
+        cache: false,
+        async: false,
+        url: "/mod/rtw/view.php?id=10&c=videoquiz&a=query",
+        success: function(response) {
+            if(response != '') {
+                $.colorbox({html:response});
+            }
+        }
+    });
+}
 $(document).ready(function(){
-    count();
+    //count();
     //console.log(rand_numbers);
     //console.log(max_num);
 });
