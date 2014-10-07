@@ -49,9 +49,9 @@ $context = context_module::instance($cm->id);
 
 /// Print the page header
 
-$PAGE->set_url('/mod/rtw/popup.php', array('id' => $cm->id));
+$PAGE->set_url('/mod/rtw/ajax.php', array('id' => $cm->id));
 $PAGE->set_title(format_string($rtw->name));
-$PAGE->requires->js('/mod/rtw/js/jquery-2.1.1.min.js', true);
+//$PAGE->requires->js('/mod/rtw/js/jquery-2.1.1.min.js', true);
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
 $PAGE->set_pagelayout('popup');

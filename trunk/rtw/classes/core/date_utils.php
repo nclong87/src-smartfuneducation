@@ -23,5 +23,15 @@ class date_utils {
         }
         return false;
     }
-
+    
+    public static function getSecondsBetween(\DateTime $from,  \DateTime $to) {
+        $retval = $from->diff($to);
+        return ($retval->y * 365 * 24 * 60 * 60) +
+               ($retval->m * 30 * 24 * 60 * 60) +
+               ($retval->d * 24 * 60 * 60) +
+               ($retval->h * 60 * 60) +
+               ($retval->i * 60) +
+               $retval->s;
+    }
+    
 }

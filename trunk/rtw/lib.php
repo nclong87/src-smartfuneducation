@@ -30,6 +30,8 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
+define('ENV', 'development');
+include 'config_'.ENV.'.php';
 
 /** example constant */
 //define('NEWMODULE_ULTIMATE_ANSWER', 42);
@@ -407,4 +409,14 @@ function rtw_user_enrolled_event($eventdata) {
     echo '<pre>';
     print_r($eventdata);
     die;
+}
+
+function rtw_print_exceptiom($exc,$exit = true) {
+    echo '<pre>';
+    echo $exc->getMessage().'<br>';
+    echo $exc->getTraceAsString();
+    die;
+    if($exit) {
+        die;
+    }
 }

@@ -1,20 +1,30 @@
 <?php
+use \mod_rtw\core\log;
 abstract class mod_rtw_renderer_base extends plugin_renderer_base {
     
     public function __construct(\moodle_page $page, $target) {
         global $cm;
         global $USER;
         parent::__construct($page, $target);
+        if(!isset($_SESSION)){
+            session_start();
+        }
         $pix_url = $this->output->pix_url('', 'rtw');
         define('module_static_url', $pix_url.'=');
         $this->course_module = $cm;
         $this->user = $USER;
+        $this->_log = log::getInstance();
     }
     protected $course_module;
     protected $user;
     protected $_PATH;
     protected $_file;
     protected $_variables = array();
+    /**
+     *
+     * @var log 
+     */
+    protected $_log;
     public function header() {
         echo $this->output->header();
     }
@@ -38,7 +48,10 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
         return $var;
     }
     
-    protected function doRender() {
+    protected function doRender($view = '') {
+        if(!empty($view)) {
+            $this->_file = $view;
+        }
         echo $this->renderPage();
     }
     

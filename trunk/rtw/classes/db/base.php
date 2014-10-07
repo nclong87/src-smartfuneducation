@@ -74,7 +74,9 @@ abstract class base {
 
     /**
      * 
-     * @param Array $data
+     * @param number $id
+     * @param mix $data
+     * @return type
      */
     public function update($id,$data) {
         $this->_log->log(array(__CLASS__,__FUNCTION__,  $this->_tableName,$data,'$id='.$id));
