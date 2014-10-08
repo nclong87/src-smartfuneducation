@@ -16,6 +16,9 @@ function resetErrorMessage() {
     $(".error_message").html("");
     $("form input.error,form select.error").removeClass("error");
 }
+function updatePlayerInfo(coin) {
+    $("#current_coin").text(coin);
+}
 $(document).ready(function (){
     $("#wrapper").css("min-height",$(window).height() - 2);
 });

@@ -65,7 +65,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
                 $_SESSION['quiz']['questions'][] = $obj;
             }
         } 
-        redirect('/mod/rtw/view.php?id='.$this->course_module->id.'&c=quiz&a=question','Đang load danh sách câu hỏi, vui lòng đợi...',1);
+        redirect('/mod/rtw/view.php?id='.$this->course_module->id.'&c=quiz&a=question');
     }
     
     public function render_test() {
