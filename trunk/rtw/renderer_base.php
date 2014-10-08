@@ -30,7 +30,7 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
     protected $_log;
     public function header() {
         echo $this->output->header();
-        echo '<div style="margin-top: -10px; text-align: center; margin-bottom: 10px; font-style: italic; font-size: 16px;">Bạn đang có <b id="current_coin">'. number_format($this->_player_info->current_coin).'</b> xu</div>';
+        echo '<div style="margin-top: -10px; text-align: center; margin-bottom: 10px; font-style: italic; font-size: 16px; display: inline-block;">Bạn đang có <b id="current_coin">'. number_format($this->_player_info->current_coin).'</b> xu</div>';
     }
     
     public function footer() {
