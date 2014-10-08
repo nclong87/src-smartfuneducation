@@ -67,6 +67,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             );
             $time_rands = array();
             $start_num = 10;
+            $video->length = 150;
             foreach ($questions as $obj) {
                 $data['question_id'] = $obj->id;
                 $game_videoquiz_id = game_videoquiz::getInstance()->insert($data,true);

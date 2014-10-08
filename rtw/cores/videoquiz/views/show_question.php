@@ -1,4 +1,4 @@
-<div style="display: block;text-align: center;padding: 20px">
+<div style="display: block;text-align: left;padding: 20px">
     <h1><?php echo $question->questiontext?></h1>
     <form id="submitForm">
         <?php
@@ -33,14 +33,8 @@
     function doIgnore() {
         $.colorbox.close();
     }
-    function doAnswer() {
+    function callAjaxAnswer() {
         var str = $( "#submitForm" ).serialize();
-        if(str == '') {
-            alert("Vui lòng chọn đáp án trả lời!");
-            return;
-        }
-        blockUI("Đang kiểm tra dữ liệu, vui lòng chờ đợ trong giây lát...");
-        clearTimeout(counter);
         $.ajax({
             type: 'POST',
             cache: false,
@@ -59,6 +53,16 @@
                 }
             }
         });
+    }
+    function doAnswer() {
+        var str = $( "#submitForm" ).serialize();
+        if(str == '') {
+            alert("Vui lòng chọn đáp án trả lời!");
+            return;
+        }
+        clearTimeout(counter);
+        blockUI("Đang kiểm tra dữ liệu, vui lòng chờ đợi trong giây lát...");
+        setTimeout("callAjaxAnswer()",500);
     }
     function countDown() {
         if(remain_seconds > 0) {

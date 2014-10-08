@@ -90,7 +90,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
                 game_quiz::getInstance()->update($question->game_quiz_id, array('show_time' => $question->show_time));
             } 
             $this->_log->log(array(__CLASS__,__FUNCTION__,$_SESSION['quiz']['questions'][$seq]));
-            $total_time = 20;
+            $total_time = 30;
             $remain_seconds = $total_time - date_utils::getSecondsBetween(new DateTime($question->show_time), new DateTime());
             if($remain_seconds <= 0) {
                 $error_message = 'Câu hỏi đã hết thời gian trả lời!';

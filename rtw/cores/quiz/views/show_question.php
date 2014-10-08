@@ -1,4 +1,4 @@
-<div style="display: block;text-align: center;padding: 20px">
+<div style="display: block;text-align: left;padding: 20px">
     <h1><?php echo $question->questiontext?></h1>
     <form id="submitForm">
         <?php
@@ -36,14 +36,8 @@
         var next = parseInt(seq) + 1;
         location.href = "/mod/rtw/view.php?id="+course_module+"&c=quiz&a=question&seq="+ next;
     }
-    function doAnswer() {
+    function callAjaxAnswer() {
         var str = $( "#submitForm" ).serialize();
-        if(str == '') {
-            alert("Vui lòng chọn đáp án trả lời!");
-            return;
-        }
-        blockUI("Đang kiểm tra dữ liệu, vui lòng chờ đợ trong giây lát...");
-        clearTimeout(counter);
         $.ajax({
             type: 'POST',
             cache: false,
@@ -56,12 +50,22 @@
                     $.colorbox({
                         html:response,
                         'onClosed' : function () {
-                           doIgnore();
+                            doIgnore();
                         }
                     });
                 }
             }
         });
+    }
+    function doAnswer() {
+        var str = $( "#submitForm" ).serialize();
+        if(str == '') {
+            alert("Vui lòng chọn đáp án trả lời!");
+            return;
+        }
+        clearTimeout(counter);
+        blockUI("Đang kiểm tra dữ liệu, vui lòng chờ đợi trong giây lát...");
+        setTimeout("callAjaxAnswer()",500);
     }
     function countDown() {
         if(remain_seconds > 0) {
