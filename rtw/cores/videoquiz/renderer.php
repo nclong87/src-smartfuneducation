@@ -62,15 +62,15 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
                 'is_correct' => '0'
             );
             $time_rands = array();
-            $start_num = 0;
+            $start_num = 10;
             foreach ($questions as $obj) {
                 $data['question_id'] = $obj->id;
                 $game_videoquiz_id = game_videoquiz::getInstance()->insert($data,true);
                 $obj->game_videoquiz_id = $game_videoquiz_id;
                 $obj->game_player_id = $current_game->id;
                 
-                //$start_num = rand($start_num + 1, $video->length - 10);
-                $start_num+=10;
+                $start_num = rand($start_num + 1, $video->length - 10);
+                //$start_num+=10;
                 $time_rands[] = $start_num;
                 
                 $_SESSION['videoquiz']['questions'][$start_num] = $obj;
@@ -83,7 +83,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             $time_rands = $_SESSION['videoquiz']['time_rands'];
         }
         $this->set_var('video', $video);
-        sort($time_rands);
+        //sort($time_rands);
         $this->set_var('max_num', $video->length);
         $this->set_var('rands', json_encode($time_rands));
         $this->_file = 'index.php';

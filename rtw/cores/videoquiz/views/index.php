@@ -7,6 +7,8 @@
     controls="controls">
     <source src="<?php echo path_videos.$video->url?>" type="video/mp4">
 </video>
+    <br clear="all">
+    <a class="button" href="/mod/rtw/view.php?id=<?php echo $course_module->id?>&c=map">Trở về Map</a>
 </div>
 <script>
 var rand_numbers = <?php echo $rands?>;
