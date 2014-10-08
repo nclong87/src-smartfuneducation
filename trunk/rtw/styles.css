@@ -11,9 +11,10 @@ display: inline-block;
 margin-bottom: 10px; 
 text-align: left;
 }
+/*
 #page-header {
     display: none;
-}
+}*/
 
 .button {
 -moz-border-bottom-colors: none;
