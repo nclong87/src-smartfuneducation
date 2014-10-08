@@ -76,7 +76,7 @@ class log {
                 }
             }
             $message = "{$date}\t{$this->ip}\t{$this->process_id}\t{$type}{$message}";
-            file_put_contents('/home/localadm/logs/rtw/log.txt', $message . PHP_EOL, FILE_APPEND);
+            //file_put_contents('/home/localadm/logs/rtw/log.txt', $message . PHP_EOL, FILE_APPEND);
             //Core_Log::plusLog($message);
         } catch (Exception $e) {
             //Core_Utils_Notification::addAlertInfo('log', $e, 'error');
