@@ -52,7 +52,9 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
         if(!empty($view)) {
             $this->_file = $view;
         }
+        //echo $this->header();
         echo $this->renderPage();
+        //echo $this->footer();
     }
     
     /**

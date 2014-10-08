@@ -48,11 +48,7 @@ class question_categories extends base {
         }
 
         // Get list of categories
-        if ($recurse) {
-            $categorylist = question_categorylist($category->id);
-        } else {
-            $categorylist = array($category->id);
-        }
+        $categorylist = array($category->id);
 
         // Get the list of questions for the category
         list($usql, $params) = $this->_db->get_in_or_equal($categorylist);
