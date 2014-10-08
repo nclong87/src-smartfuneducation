@@ -1,5 +1,6 @@
 <?php
 use \mod_rtw\core\log;
+use mod_rtw\core\player;
 abstract class mod_rtw_renderer_base extends plugin_renderer_base {
     
     public function __construct(\moodle_page $page, $target) {
@@ -13,6 +14,7 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
         define('module_static_url', $pix_url.'=');
         $this->course_module = $cm;
         $this->user = $USER;
+        $this->_player_info = player::getInstance()->getPlayerInfo();
         $this->_log = log::getInstance();
     }
     protected $course_module;
@@ -20,6 +22,7 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
     protected $_PATH;
     protected $_file;
     protected $_variables = array();
+    protected $_player_info;
     /**
      *
      * @var log 
@@ -27,6 +30,7 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
     protected $_log;
     public function header() {
         echo $this->output->header();
+        echo '<div style="margin-top: -10px; text-align: center; margin-bottom: 10px; font-style: italic; font-size: 16px;">Bạn đang có <b id="current_coin">'. number_format($this->_player_info->current_coin).'</b> xu</div>';
     }
     
     public function footer() {
@@ -38,6 +42,7 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
             throw new Exception('Error System');
         }
         $this->_variables['course_module'] = $this->course_module;
+        $this->_variables['player_info'] = $this->_player_info;
         foreach ($this->_variables as $variableName => $variableValue) {
             $$variableName = $variableValue;
         }

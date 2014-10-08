@@ -10,6 +10,10 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         $this->_PATH = realpath(dirname(__FILE__));
     }
     
+    public function render_intro() {
+        $this->doRender('intro.php');
+    }
+    
     public function render_index() {
         //Lay thong tin nguoi choi
         $player_info = player::getInstance()->getPlayerInfo();
