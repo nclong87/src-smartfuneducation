@@ -6,4 +6,9 @@
     Điểm cộng (trả lời đúng): <?php echo $coins1;?><br/>
     Điểm trừ (trễ giờ): <?php echo $coins2;?><br/>
     Tổng cộng:<?php echo $total;?>
+    <br clear="all"/>
+    <a class="button" href="/mod/rtw/view.php?id=<?php echo $course_module->id?>&c=map">Trở về Map</a>
 </div>
+<script>
+   updatePlayerInfo('<?php echo $current_coin?>'); 
+</script>

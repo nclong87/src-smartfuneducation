@@ -24,7 +24,7 @@ text-align: left;
 background-color: #f5f5f5;
 background-image: linear-gradient(to bottom, #fff, #e6e6e6);
 background-repeat: repeat-x;
-border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) #b3b3b3;
+border-color: #ccc #ccc #b3b3b3;
 border-image: none;
 border-radius: 4px;
 border-style: solid;
