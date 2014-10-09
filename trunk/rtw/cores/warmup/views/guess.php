@@ -83,14 +83,31 @@ function UpdateHidMembers(SelList)
 					  	?>
 				</select>
 				 
-				 <br/>
-				 <input type="submit" value="Gửi dự đoán"/>
 			</td>
 		</tr> 
 		
         </table>
+        <a class="button" href="/mod/rtw/view.php?id=<?php echo $course_module->id?>&c=map">Trở về Map</a>
+        <input id="btSubmit" style="margin-left: 20px; margin-bottom: 0px;" type="submit" value="Gửi dự đoán" />
+        <br clear="all"/>
+        <i style="display:block;margin-top: 10px">Thời gian gửi dự đoán còn <b id="remain_seconds"><?php echo $remain_seconds?></b> giây</i>
      </form>
 </div>
 <script language="Javascript">
-	UpdateHidMembers(document.assignform.groupmembers);
+    var remain_seconds = <?php echo $remain_seconds?> ;
+    var counter;
+    function countDown() {
+        if(remain_seconds > 0) {
+            remain_seconds--;
+            $("#remain_seconds").text(remain_seconds);
+            counter = setTimeout("countDown()",1000);
+        } else {
+            $("#btSubmit")[0].disabled = true;
+        }
+    }
+    $(document).ready(function() {
+        $("#btSubmit")[0].disabled = false;
+        countDown();
+        UpdateHidMembers(document.assignform.groupmembers);
+    });
 </script>

@@ -92,6 +92,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
 	        );
 	        warmup::getInstance()->insert($data);
         }
+        $_SESSION['warmup']['current_game'] = $current_game;
         //-----------------------------------
         
         //Khai báo
@@ -116,17 +117,25 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         
         //Gán tên nhóm và số lượng thành viên nhóm
         $groupmembers = groups_get_members($currentgroup, 'u.id');
-        if($groupmembers!=null)
-        	$this->set_var('groupname', $group->name.' ('.count($groupmembers).' thành viên)');
-        else 
-        	$this->set_var('groupname',"");
+        if($groupmembers!=null) {
+            $this->set_var('groupname', $group->name.' ('.count($groupmembers).' thành viên)');
+        } else {
+            $this->set_var('groupname',"");
+        }
+        $remain_seconds = date_utils::getSecondsBetween(new DateTime(),new DateTime($last_game->expired_time));
+        if($remain_seconds < 0) {
+            $remain_seconds = 0;
+        }
+        $this->set_var('remain_seconds', $remain_seconds);
         
         $this->doRender();
     }
     
     public function render_send() {
-    	$this->_file = 'send.php';
-    	
+        if(!isset($_SESSION['warmup']['current_game'])) {
+            redirect('/mod/rtw/view.php?id=10&c=warmup', 'Bạn đã gửi dự đoán cho game này rồi, đang chuyển đến trang giới thiệu...');
+        }
+        
     	//Khoá học
     	global $COURSE;
     	global $DB;
@@ -156,13 +165,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
     	$this->set_var('coins1',$coins);
     	
     	//Lấy thời gian bắt đầu chơi để trừ điểm trễ giờ ---------------
-    	$player_info = player::getInstance()->getPlayerInfo();
-    	//Lay thong tin game theo level hien tai cua nguoi choi
-    	$game = game::getInstance()->findByQuest('warmup', $player_info->current_level);
-    	if($game == false) {
-    		throw new Exception(get_string('no_data', 'mod_rtw'));
-    	}
-    	$current_game = game::getInstance()->findLastGame($game->id, $player_info->id);
+    	$current_game = $_SESSION['warmup']['current_game'];
     	//Lấy warmup hiện tại
     	$warmupRecord = $DB->get_record('rtw_game_warmup', array('player_game_id'=>$current_game->id));
     	$starttime = $warmupRecord->start_time;
@@ -192,7 +195,8 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
     	$total = optional_param('total', '', PARAM_TEXT);
     	$this->set_var('total',$coins);
     	
-    	\mod_rtw\core\player::getInstance()->change_coin($game->id, $coins);
+    	\mod_rtw\core\player::getInstance()->change_coin($current_game->id, $coins);
+        $this->set_var('current_coin', number_format($this->_player_info->current_coin + $coins));
         $warmupRecord = $DB->get_record('rtw_game_warmup', array('player_game_id'=>$current_game->id));
         //$data = array(
         //	'submit_time' => $now->format(date_utils::$formatSQLDateTime),
@@ -204,7 +208,8 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         $record->submit_time = $now->format(date_utils::$formatSQLDateTime);
         $record->submit_data = serialize($inputs);
         $record->num_correct = $total;
-        $lastinsertid = $DB->update_record('rtw_game_warmup', $record, false);
+        $DB->update_record('rtw_game_warmup', $record, false);
+        unset($_SESSION['warmup']['current_game']);
         
         //log::getInstance()->log(array($data));
         //warmup::getInstance()->update($warmupRecord->id,$data);
@@ -212,7 +217,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         //$this->_file = 'add.php';
         
     	
-        $this->doRender();
+        $this->doRender('send.php');
     }
     
     private function fail_items_number($groupmembers, $inputs){
