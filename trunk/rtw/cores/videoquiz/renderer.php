@@ -55,9 +55,9 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             //$quba = question_engine::make_questions_usage_by_activity('mod_rtw', \context_module::instance($this->course_module->id));
             //$quba->set_preferred_behaviour('');
             //question_engine::save_questions_usage_by_activity($quba);
-            $category = question_categories::getInstance()->findCategoryByLevelAndQuest($player_info->current_level, 'videoquiz');
             //$quba = question_engine::load_questions_usage_by_activity(1);
-            $questions = question_categories::getInstance()->get_questions_category($category,$num_question);
+            $category = question_categories::getInstance()->findCategoryByLevelAndQuest($player_info->current_level, 'videoquiz');
+            $questions = question_categories::getInstance()->get_video_questions($category,$video->url);
             //id,videoquiz_id,game_player_id,question_id,show_time,start_time,submit_time,is_correct,coin_id
             $data = array(
                 'videoquiz_id' => $video->id,
@@ -76,7 +76,11 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
                 $obj->game_videoquiz_id = $game_videoquiz_id;
                 $obj->game_player_id = $current_game->id;
                 $start_num = $i * $div;
-                $rand_num = rand($start_num + 10, $start_num + $div);
+                if(is_number($obj->name)) {
+                    $rand_num = intval($obj->name);
+                } else {
+                    $rand_num = rand($start_num + 10, $start_num + $div);
+                }
                 //$start_num+=10;
                 $time_rands[] = $rand_num;
                 $_SESSION['videoquiz']['questions'][$rand_num] = $obj;
@@ -99,7 +103,11 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
     
     public function render_test() {
         global $COURSE;
-        rtw_debug($_SESSION['videoquiz']);
+        $video = game_videoquiz::getInstance()->getRandomVideo($this->_player_info->current_level);
+        $category = question_categories::getInstance()->findCategoryByLevelAndQuest($this->_player_info->current_level, 'videoquiz');
+        $questions = question_categories::getInstance()->get_video_questions($category,$video->url);
+        rtw_debug(array($video,$category,$questions));
+        
         $this->_file = 'test.php';
         $this->doRender();
     }
