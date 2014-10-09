@@ -69,5 +69,22 @@ class question_categories extends base {
 
         return $qresults;
     }
+    
+    function get_video_questions($category,$video_name,$export = true) {
+        // Build sql bit for $noparent
+        $questions = $this->_db->get_records_sql("select * from mdl_question where category = ? and id in ( select t0.itemid from mdl_tag_instance t0 inner join mdl_tag t1 on t0.tagid = t1.id where t1.rawname = ? and t0.itemtype = 'question')", array($category->id,$video_name));
+        foreach ($questions as $question) {
+            $question->export_process = $export;
+            $qtype = question_bank::get_qtype($question->qtype, false);
+            if ($export && $qtype->name() == 'missingtype') {
+                // Unrecognised question type. Skip this question when exporting.
+                continue;
+            }
+            $qtype->get_question_options($question);
+            $qresults[] = $question;
+        }
+
+        return $qresults;
+    }
 
 }

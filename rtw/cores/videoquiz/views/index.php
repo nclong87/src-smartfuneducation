@@ -26,6 +26,7 @@ function showQuestion(time) {
             if(response != '') {
                 $.colorbox({
                     html:response,
+                    width : "90%",
                     'onClosed' : function () {
                         video.play();
                     }

@@ -1,4 +1,4 @@
-<div style="display: block;text-align: left;padding: 20px">
+<div style="display: block;text-align: left;padding: 20px;width: 94%">
     <h1><?php echo $question->questiontext?></h1>
     <form id="submitForm">
         <?php
@@ -31,7 +31,7 @@
     var time = <?php echo $time?> ;
     var remain_seconds = <?php echo $remain_seconds?> ;
     function doIgnore() {
-        $.colorbox.close();
+        //$.colorbox.close();
     }
     function callAjaxAnswer() {
         var str = $( "#submitForm" ).serialize();
