@@ -20,5 +20,12 @@
     <br clear="all"/>
 </div>
 <script>
-updatePlayerInfo('<?php echo $player_info->current_coin + $change_coin ?>');
+<?php
+if(isset($change_coin)) {
+    $current_coin = number_format($player_info->current_coin + $change_coin);
+?>
+    updatePlayerInfo('<?php echo $current_coin ?>');
+<?php
+}
+?>
 </script>

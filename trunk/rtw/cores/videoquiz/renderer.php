@@ -68,17 +68,19 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             $time_rands = array();
             $start_num = 10;
             $video->length = 150;
+            $i = 0;
+            $div = intval($video->length / $num_question);
             foreach ($questions as $obj) {
                 $data['question_id'] = $obj->id;
                 $game_videoquiz_id = game_videoquiz::getInstance()->insert($data,true);
                 $obj->game_videoquiz_id = $game_videoquiz_id;
                 $obj->game_player_id = $current_game->id;
-                
-                $start_num = rand($start_num + 1, $video->length - 10);
+                $start_num = $i * $div;
+                $rand_num = rand($start_num + 10, $start_num + $div);
                 //$start_num+=10;
-                $time_rands[] = $start_num;
-                
-                $_SESSION['videoquiz']['questions'][$start_num] = $obj;
+                $time_rands[] = $rand_num;
+                $_SESSION['videoquiz']['questions'][$rand_num] = $obj;
+                $i++;
             }
             $_SESSION['videoquiz']['time_rands'] = $time_rands;
             $_SESSION['videoquiz']['video'] = $video;
