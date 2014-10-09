@@ -20,5 +20,5 @@
     <br clear="all"/>
 </div>
 <script>
-updatePlayerInfo(<?php echo $player_info->current_coin ?>);
+updatePlayerInfo(<?php echo $player_info->current_coin + $change_coin ?>);
 </script>
