@@ -122,7 +122,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         } else {
             $this->set_var('groupname',"");
         }
-        $remain_seconds = date_utils::getSecondsBetween(new DateTime(),new DateTime($last_game->expired_time));
+        $remain_seconds = date_utils::getSecondsBetween(new DateTime(),new DateTime($current_game->expired_time));
         if($remain_seconds < 0) {
             $remain_seconds = 0;
         }
