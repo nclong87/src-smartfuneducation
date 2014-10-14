@@ -94,7 +94,7 @@ abstract class base {
         $this->_db->execute($sql,$params);
     }
     
-    public function query($data,$isOne = false) {
+    public function query($data,$isOne = false, $orderBy = '', $limit = 0) {
         if(empty($data)) {
             return null;
         }
@@ -108,6 +108,12 @@ abstract class base {
             $params[$key] = $value;
         }   
         $sql = 'select * from '.$this->_tableName.' where '.$where;
+        if($orderBy != '') {
+            $sql.= ' ORDER BY '.$orderBy;
+        }
+        if($limit > 0) {
+            $sql.= ' LIMIT 0,'.$limit;
+        }
         if($isOne) {
             $result = $this->_db->get_record_sql($sql, $params);
             if($result == false) {

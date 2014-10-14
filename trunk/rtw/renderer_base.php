@@ -6,17 +6,20 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
     public function __construct(\moodle_page $page, $target) {
         global $cm;
         global $USER;
+        global $COURSE;
         parent::__construct($page, $target);
         if(!isset($_SESSION)){
             session_start();
         }
         $pix_url = $this->output->pix_url('', 'rtw');
-        define('module_static_url', $pix_url.'=');
+        define('static_image_path', $pix_url.'=');
+        $this->course = $COURSE;
         $this->course_module = $cm;
         $this->user = $USER;
         $this->_player_info = player::getInstance()->getPlayerInfo();
         $this->_log = log::getInstance();
     }
+    protected $course;
     protected $course_module;
     protected $user;
     protected $_PATH;

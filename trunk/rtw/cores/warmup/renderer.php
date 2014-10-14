@@ -8,7 +8,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         parent::__construct($page, $target);
         $this->_PATH = realpath(dirname(__FILE__));
     }
-    
+  	//aaa  
     //Step1 - vào chức năng
     public function render_index() {
     	$this->_file = 'index.php';
