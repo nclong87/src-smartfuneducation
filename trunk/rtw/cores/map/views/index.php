@@ -10,6 +10,9 @@
             <?php
             if(isset($data[$i])) {
                 foreach ($data[$i] as $num => $group_name) {
+                    if($num > 5) {
+                        break;
+                    }
                     echo '<div class="pos pos'.$num.'">'.$group_name.'</div>';
                 }
             }
