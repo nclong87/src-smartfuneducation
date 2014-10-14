@@ -65,4 +65,27 @@ class player {
         unset($this->_player_info);
     }
     
+    /**
+     * 
+     * @param number $game_id
+     * @param number $num_xp
+     */
+    public function incrExp($game_id,$num_xp) {
+        $xp_after = $this->_player_info->current_xp + $num_xp;
+        $data = array(
+            'player_game_id' => $game_id,
+            'num_xp' => $num_xp,
+            'create_time' => date_utils::getCurrentDateSQL(),
+            'xp_before' => $this->_player_info->current_xp,
+            'xp_after' => $xp_after
+        );
+        \mod_rtw\db\experience::getInstance()->insert($data);
+        $data = array(
+            'current_xp' => $xp_after,
+            'last_update' => date_utils::getCurrentDateSQL()
+        );
+        \mod_rtw\db\player::getInstance()->update($this->_player_info->id, $data);
+        unset($this->_player_info);
+    }
+    
 }

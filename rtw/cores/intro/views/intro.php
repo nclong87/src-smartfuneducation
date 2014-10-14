@@ -1,6 +1,6 @@
 <div style="display: block;text-align: center">
     <div id="intro_top">
-        <img src="<?php echo module_static_url ?>genie" style="padding: 2px; float: left; margin-right: 10px; border: 1px solid rgb(187, 187, 187);"/>
+        <img src="<?php echo static_image_path ?>genie" style="padding: 2px; float: left; margin-right: 10px; border: 1px solid rgb(187, 187, 187);"/>
         <p>Hello! I am Happy Genie, your happy assistant. Congratulations on joining our exciting journey ahead.</p>
         <p>As you have accidentally found this secret map, the Map that leads to you a very precious treasure – a successful career with your dream job, let's open it. Start looking carefully into the map and its guidance.</p>
         <p>Reading the ancient script in the map, you'll learn that there is a Huge Treasure Trunk in the Northeast of the region and your job is to find 7 keys in order to open the Huge Trunk of Great Treasure. So first of all, you have to collect each of 7 keys, one by one...</p>
