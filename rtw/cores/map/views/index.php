@@ -6,7 +6,7 @@
             $quest_class = 'quest'.$i;
             ?>
         <div class="quest <?php echo $quest_class?>">
-            <a href="/mod/rtw/view.php?id=10&c=map&a=level&l=<?php echo $i?>"></a>
+            <a href="/mod/rtw/view.php?id=<?php echo $course_module->id?>&c=map&a=level&l=<?php echo $i?>"></a>
             <?php
             if(isset($data[$i])) {
                 foreach ($data[$i] as $num => $group_name) {
