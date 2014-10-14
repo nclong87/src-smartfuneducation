@@ -90,6 +90,11 @@ background-color: paleturquoise;
 left: 10px;
 top: -50px;
 }
+#map .pos.pos2 {
+background-color: violet;
+right: -107px;
+top: 0;
+}
 
 #map .quest1 {
 background: url([[pix:rtw|q1]]) no-repeat scroll 0 0 rgba(0, 0, 0, 0);
