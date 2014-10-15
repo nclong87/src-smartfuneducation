@@ -31,7 +31,19 @@
 
 defined('MOODLE_INTERNAL') || die();
 define('ENV', 'development');
-include 'config_'.ENV.'.php';
+$ini_array = parse_ini_file('config_'.ENV.'.ini');
+$CONFIG_RTW = new stdclass;
+foreach ($ini_array as $key=>$value) {
+    $c = $CONFIG_RTW;
+    foreach (explode(".", $key) as $key) {
+        if (!isset($c->$key)) {
+            $c->$key = new stdclass;
+        }
+        $prev = $c;
+        $c = $c->$key;
+    }
+    $prev->$key = $value;
+}
 
 /** example constant */
 //define('NEWMODULE_ULTIMATE_ANSWER', 42);
@@ -419,4 +431,14 @@ function rtw_print_exceptiom($exc,$exit = true) {
     if($exit) {
         die;
     }
+}
+
+function rtw_pick_one(&$array) {
+    if(empty($array)) {
+        return 0;
+    }
+    $return = $array[0];
+    unset($array[0]);
+    shuffle($array);
+    return $return;
 }

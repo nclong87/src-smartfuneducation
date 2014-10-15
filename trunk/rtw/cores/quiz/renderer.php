@@ -154,7 +154,9 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             if($point == 1) { //correct
                 $data_update['is_correct'] = 1;
                 $coin_id = player::getInstance()->change_coin($question->game_player_id, $coin);
+                $experience_id = player::getInstance()->incrExp($question->game_player_id, $coin);
                 $data_update['coin_id'] = $coin_id;
+                $data_update['experience_id'] = $experience_id;
                 $this->set_var('change_coin', $coin);
                 $style = 'color:green';
             } else {

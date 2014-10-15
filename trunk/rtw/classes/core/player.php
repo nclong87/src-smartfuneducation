@@ -56,13 +56,13 @@ class player {
             'coin_before' => $this->_player_info->current_coin,
             'coin_after' => $coin_after
         );
-        \mod_rtw\db\coin::getInstance()->insert($data);
+        $coin_id = \mod_rtw\db\coin::getInstance()->insert($data,true);
         $data = array(
             'current_coin' => $coin_after,
             'last_update' => date_utils::getCurrentDateSQL()
         );
         \mod_rtw\db\player::getInstance()->update($this->_player_info->id, $data);
-        unset($this->_player_info);
+        return $coin_id;
     }
     
     /**
@@ -79,13 +79,14 @@ class player {
             'xp_before' => $this->_player_info->current_xp,
             'xp_after' => $xp_after
         );
-        \mod_rtw\db\experience::getInstance()->insert($data);
+        $exp_id = \mod_rtw\db\experience::getInstance()->insert($data,true);
         $data = array(
             'current_xp' => $xp_after,
             'last_update' => date_utils::getCurrentDateSQL()
         );
         \mod_rtw\db\player::getInstance()->update($this->_player_info->id, $data);
         unset($this->_player_info);
+        return $exp_id;
     }
     
 }
