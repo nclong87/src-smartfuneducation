@@ -5,7 +5,7 @@
     width="640"
     height="390"
     controls="controls">
-    <source src="<?php echo path_videos.$video->url?>" type="video/mp4">
+    <source src="<?php echo $config_rtw->paths->video.$video->url?>" type="video/mp4">
 </video>
     <br clear="all">
     <a class="button" href="/mod/rtw/view.php?id=<?php echo $course_module->id?>&c=map">Trở về Map</a>

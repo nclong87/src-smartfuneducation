@@ -51,27 +51,39 @@ vertical-align: middle;
 #submitForm .option {
     margin-bottom: 5px; margin-top: 5px;
 }
-
-#map {
-    background: url([[pix:rtw|map]]);
-    background-repeat: no-repeat;
+#left_column {
     display: block;
     width: 800px;
     height: 600px;
     position: relative;
+    float: left;
 }
-#map .quest {
+#right_column {
+display: inline-block;
+float: left;
+padding-left: 10px;
+position: relative;
+width: 300px;
+}
+#map {
+    background: url([[pix:rtw|map]]);
+    background-repeat: no-repeat;
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+#map .level {
    display: block; 
    position: absolute;
    height: 77px;
    width: 78px;
 }
-#map .quest a{
+#map .level a{
     display: block;
 height: 100%;
 width: 100%;
 }
-#map .quest .pos {
+#map .level .pos {
 border: 2px solid;
 border-radius: 25px;
 display: block;
@@ -79,6 +91,8 @@ font-weight: bold;
 height: 40px;
 position: absolute;
 width: 100px;
+z-index: 999;
+text-align: center;
 }
 #map .pos.pos0 {
 background-color: springgreen;
@@ -95,11 +109,177 @@ background-color: violet;
 right: -107px;
 top: 0;
 }
-
-#map .quest1 {
-background: url([[pix:rtw|q1]]) no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+#map .pos.pos3 {
+background-color: seashell;
+right: -107px;
+top: 50px;
+}
+#map .pos.pos4 {
+background-color: salmon;
+right: -9px;
+top: 80px;
+}
+#map .pos.pos5 {
+background-color: thistle;
+left: -110px;
+top: 34px;
+}
+#map .level span.title {
+background-color: #fff;
+border: 1px solid #bbb;
+border-radius: 10px;
+color: midnightblue;
+font-weight: bold;
+left: -166px;
+padding: 5px;
+position: absolute;
+text-align: left;
+top: 15px;
+width: 150px;
+}
+#map .level1 {
+background: url([[pix:rtw|level1]]) no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 left: 215px;
 top: 455px;
 }
 
+#map .level2 {
+background: url([[pix:rtw|level2]]) no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+height: 81px;
+left: 575px;
+top: 455px;
+}
 
+#map .level3 {
+background: url([[pix:rtw|level3]]) no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+height: 81px;
+left: 295px;
+top: 310px;
+}
+#map .level4 {
+background: url([[pix:rtw|level4]]) no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+height: 81px;
+left: 495px;
+top: 289px;
+width: 80px;
+}
+#map .level5 {
+background: url([[pix:rtw|level5]]) no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+height: 81px;
+left: 430px;
+top: 429px;
+}
+#map .level6 {
+background: url([[pix:rtw|level6]]) no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+height: 81px;
+left: 279px;
+top: 130px;
+width: 80px;
+}
+#map .level7 {
+background: url([[pix:rtw|level7]]) no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+height: 81px;
+left: 158px;
+top: 50px;
+}
+#page #page-content #region-main, #page #page-content div[role="main"] {
+}
+
+#right_column #player_info {
+background-color: #eee;
+border-radius: 10px;
+box-shadow: 3px 3px 5px #bbb;
+display: block;
+padding: 10px;
+width: 100%;
+}
+
+.quest {
+border: 1px solid #bbb;
+border-radius: 10px;
+box-shadow: 3px 3px 3px #bbb;
+display: block;
+height: 85px;
+position: absolute;
+width: 125px;
+}
+.quest a.img {
+background: url("/theme/image.php?theme=essential&component=rtw&image=quest") no-repeat scroll 0px 5px rgba(0, 0, 0, 0);
+display: block;
+height: 70px;
+width: 54px;
+}
+.quest a.img:hover {
+background-position: 2px -54px;
+}
+
+.quest span.quest_name {
+bottom: 10px;
+color: tomato;
+font-weight: bold;
+left: 0;
+position: absolute;
+text-align: center;
+width: 100%;
+}
+
+.quest.pos0 {
+left: 300px;
+top: 25px;
+}
+.quest.pos1 {
+    left: 90px;
+    top: 150px;
+}
+.quest.pos2 {
+    left: 500px;
+    top: 150px;
+}
+
+.quest .member {
+display: block;
+height: 30px;
+position: absolute;
+width: 100%;
+}
+
+.quest .member img.userpicture {
+border-radius: 15px;
+bottom: -20px;
+display: block;
+height: 30px;
+left: 50px;
+position: absolute;
+width: 30px;
+z-index: 99;
+}
+.quest .member span.name {
+height: 20px;
+left: 0;
+overflow: hidden;
+position: absolute;
+text-align: center;
+width: 100%;
+top: 0;
+}
+
+.quest .member.pos0 {
+ left: 0;   
+ top: -47px;
+}
+.quest .member.pos1 {
+right: -62px;
+top: 0;
+}
+
+.quest .member.pos2 {
+bottom: 2px;
+right: 0;
+}
+.quest .member.pos2 span.name {
+top: 50px;
+}
+.quest .member.pos3 {
+left: -62px;
+top: 0;
+}

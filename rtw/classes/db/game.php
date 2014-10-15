@@ -64,5 +64,12 @@ class game extends base {
         $data['id'] = $player_game_id;
         return \mod_rtw\core\utils::array2object($data);
     }
+    
+    public function findLastGameByUids($course_id, $uids) {
+        $sql = 'select user_id,t2.*,t0.module_name,t1.`level` from mdl_rtw_quests t0 inner join mdl_rtw_games t1 on t0.id = t1.quest_id inner join (select t0.*,t1.user_id from mdl_rtw_player_game t0 inner join (select user_id,max(t0.id) as id from mdl_rtw_player_game t0 inner join mdl_rtw_players t1 on t0.player_id = t1.id inner join mdl_user t2 on t1.user_id = t2.id and t1.status = 1
+where t0.status = 1 and t1.course_id = ? and t2.id in ('.  implode(',', $uids).') group by user_id) as t1 on t0.id = t1.id
+) t2 on t1.id = t2.game_id';
+       return $this->_db->get_records_sql($sql, array($course_id));
+    }
 }
 

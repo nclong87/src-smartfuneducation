@@ -7,6 +7,7 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
         global $cm;
         global $USER;
         global $COURSE;
+        global $CONFIG_RTW;
         parent::__construct($page, $target);
         if(!isset($_SESSION)){
             session_start();
@@ -18,6 +19,8 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
         $this->user = $USER;
         $this->_player_info = player::getInstance()->getPlayerInfo();
         $this->_log = log::getInstance();
+        $this->_config_rtw = $CONFIG_RTW;
+        //rtw_debug((array)$this->_config_rtw->levels->lv1->quests);
     }
     protected $course;
     protected $course_module;
@@ -26,6 +29,7 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
     protected $_file;
     protected $_variables = array();
     protected $_player_info;
+    protected $_config_rtw;
     /**
      *
      * @var log 
@@ -33,7 +37,7 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
     protected $_log;
     public function header() {
         echo $this->output->header();
-        echo '<div style="margin-top: -10px; text-align: center; margin-bottom: 10px; font-style: italic; font-size: 16px; display: inline-block;">Bạn đang có <b id="current_coin">'. number_format($this->_player_info->current_coin).'</b> xu</div>';
+        //echo '<div style="margin-top: -10px; text-align: center; margin-bottom: 10px; font-style: italic; font-size: 16px; display: inline-block;">Bạn đang có <b id="current_coin">'. number_format($this->_player_info->current_coin).'</b> xu</div>';
     }
     
     public function footer() {
@@ -46,6 +50,7 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
         }
         $this->_variables['course_module'] = $this->course_module;
         $this->_variables['player_info'] = $this->_player_info;
+        $this->_variables['config_rtw'] = $this->_config_rtw;
         foreach ($this->_variables as $variableName => $variableValue) {
             $$variableName = $variableValue;
         }
@@ -63,6 +68,20 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
         //echo $this->header();
         echo $this->renderPage();
         //echo $this->footer();
+    }
+    
+    protected function widget($type) {
+        if(!isset($this->_PATH)) {
+            throw new Exception('Error System');
+        }
+        if($type == 'player_info') {
+            $player_info = $this->_player_info;
+        }
+        ob_start();
+        include(realpath($this->_PATH.'/../widgets/').'/'.$type.'.php');
+        $var=ob_get_contents(); 
+        ob_end_clean();
+        return $var;
     }
     
     /**

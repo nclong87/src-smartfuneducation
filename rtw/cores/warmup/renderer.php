@@ -196,6 +196,8 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
     	$this->set_var('total',$coins);
     	
     	\mod_rtw\core\player::getInstance()->change_coin($current_game->id, $coins);
+        \mod_rtw\core\player::getInstance()->incrExp($current_game->id, $coins);
+        
         $this->set_var('current_coin', number_format($this->_player_info->current_coin + $coins));
         $warmupRecord = $DB->get_record('rtw_game_warmup', array('player_game_id'=>$current_game->id));
         //$data = array(
