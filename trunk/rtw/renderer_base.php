@@ -8,6 +8,8 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
         global $USER;
         global $COURSE;
         global $CONFIG_RTW;
+        global $controller;
+        global $action;
         parent::__construct($page, $target);
         if(!isset($_SESSION)){
             session_start();
@@ -20,6 +22,14 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
         $this->_player_info = player::getInstance()->getPlayerInfo();
         $this->_log = log::getInstance();
         $this->_config_rtw = $CONFIG_RTW;
+        $player_activities = array(
+            'player_id' => $this->_player_info->id,
+            'controller' =>  $controller,
+            'action' => $action,
+            'create_time' => \mod_rtw\core\date_utils::getCurrentDateSQL(),
+            'course_module_id' => $this->course_module->id
+        );
+        \mod_rtw\db\player_activities::getInstance()->insert($player_activities, false, true);
         //rtw_debug((array)$this->_config_rtw->levels->lv1->quests);
     }
     protected $course;
@@ -76,9 +86,10 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
         }
         if($type == 'player_info') {
             $player_info = $this->_player_info;
+            $course_module = $this->course_module;
         }
         ob_start();
-        include(realpath($this->_PATH.'/../widgets/').'/'.$type.'.php');
+        include(realpath($this->_PATH.'/../common/views').'/'.$type.'.php');
         $var=ob_get_contents(); 
         ob_end_clean();
         return $var;

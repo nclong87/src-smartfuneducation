@@ -36,7 +36,7 @@ function UpdateHidMembers(SelList)
 }
 
 </script>
-<div style="display: block;text-align: center">
+<div id="rtw_content" style="display: block;text-align: center">
 	<h3><?php echo $coursename;?> - Khởi động</h3>
 	 Nhận diện thành viên nhóm mình: <br/>thực hiện bằng cách chọn thành viên nhóm từ danh sách lớp và chuyển sang nhóm của bạn. Để kết thúc phần này, nhất nút "Gửi dự đoán".
      <form id="assignform" name="assignform" style="width:850px; margin:0 auto;" action="view.php?id=<?php echo $id;?>&c=warmup&a=send" method="post">
@@ -87,7 +87,7 @@ function UpdateHidMembers(SelList)
 		</tr> 
 		
         </table>
-        <a class="button" href="/mod/rtw/view.php?id=<?php echo $course_module->id?>&c=map">Trở về Map</a>
+        <a class="button" href="/mod/rtw/view.php?id=<?php echo $course_module->id?>&c=map&a=level&l=<?php echo $player_info->current_level?>">Trở về Map</a>
         <input id="btSubmit" style="margin-left: 20px; margin-bottom: 0px;" type="submit" value="Gửi dự đoán" />
         <br clear="all"/>
         <i style="display:block;margin-top: 10px">Thời gian gửi dự đoán còn <b id="remain_seconds"><?php echo $remain_seconds?></b> giây</i>

@@ -48,11 +48,12 @@ abstract class base {
 
     /**
      * 
-     * @param Array $data
-     * @param Boolean $returnId
+     * @param Array $data Array of data
+     * @param Boolean $returnId Return last inserted premary key if set true
+     * @param Boolean $delayed Using delay insert if set true
      * @return type
      */
-    public function insert($data,$returnId = false) {
+    public function insert($data,$returnId = false,$delayed = false) {
         $this->_log->log(array(__CLASS__,__FUNCTION__,  $this->_tableName,$data,'$returnId='.$returnId));
         if(empty($data)) {
             return;
@@ -65,7 +66,8 @@ abstract class base {
             $s2[] = ":$colName";
             $params[$colName] = $colVal;
         }
-        $sql = 'INSERT INTO `' . $this->_tableName . '`(' . join(',', $s1) . ') VALUES (' . join(',', $s2) . ')';
+        $delayed = $delayed == true ?' delayed ' : '';
+        $sql = 'INSERT '.$delayed.' INTO `' . $this->_tableName . '`(' . join(',', $s1) . ') VALUES (' . join(',', $s2) . ')';
         $this->_db->execute($sql,$params);
         if($returnId) {
             return $this->getLastInsertId();
