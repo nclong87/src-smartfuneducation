@@ -47,89 +47,42 @@ echo $OUTPUT->doctype() ?>
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
 
 <header role="banner">
-    <div id="page-header" class="clearfix<?php echo ($oldnavbar) ? ' oldnavbar' : ''; ?>">
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <!-- HEADER: LOGO AREA -->
-                <div class="<?php echo $logoclass;
-                echo (!$left) ? ' pull-right' : ' pull-left'; ?>">
-                    <?php if (!$haslogo) { ?>
-                        <a class="textlogo" href="<?php echo $CFG->wwwroot; ?>">
-                            <i id="headerlogo" class="fa fa-<?php echo theme_essential_get_setting('siteicon'); ?>"></i>
-                            <?php echo theme_essential_get_title('header'); ?>
-                        </a>
-                    <?php } else { ?>
-                        <a class="logo" href="<?php echo $CFG->wwwroot; ?>" title="<?php print_string('home'); ?>"></a>
-                    <?php } ?>
-                </div>
-                <?php if ($hassocialnetworks || $hasmobileapps) { ?>
-                <a class="btn btn-icon" data-toggle="collapse" data-target=".icon-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-
-                <div class="icon-collapse collapse pull-<?php echo ($left) ? 'right' : 'left'; ?>">
-                    <?php
-                    }
-                    // If true, displays the heading and available social links; displays nothing if false.
-                    if ($hassocialnetworks) {
-                        ?>
-                        <div class="pull-<?php echo ($left) ? 'right' : 'left'; ?>" id="socialnetworks">
-                            <p id="socialheading"><?php echo get_string('socialnetworks', 'theme_essential') ?></p>
-                            <ul class="socials unstyled">
-                                <?php
-                                echo $OUTPUT->render_social_network('googleplus');
-                                echo $OUTPUT->render_social_network('twitter');
-                                echo $OUTPUT->render_social_network('facebook');
-                                echo $OUTPUT->render_social_network('linkedin');
-                                echo $OUTPUT->render_social_network('youtube');
-                                echo $OUTPUT->render_social_network('flickr');
-                                echo $OUTPUT->render_social_network('pinterest');
-                                echo $OUTPUT->render_social_network('instagram');
-                                echo $OUTPUT->render_social_network('vk');
-                                echo $OUTPUT->render_social_network('skype');
-                                echo $OUTPUT->render_social_network('website');
-                                ?>
-                            </ul>
-                        </div>
-                    <?php
-                    }
-                    // If true, displays the heading and available social links; displays nothing if false.
-                    if ($hasmobileapps) {
-                        ?>
-                        <div class="pull-<?php echo ($left) ? 'right' : 'left'; ?>" id="mobileapps">
-                            <p id="socialheading"><?php echo get_string('mobileappsheading', 'theme_essential') ?></p>
-                            <ul class="socials unstyled">
-                                <?php
-                                echo $OUTPUT->render_social_network('ios');
-                                echo $OUTPUT->render_social_network('android');
-                                echo $OUTPUT->render_social_network('winphone');
-                                echo $OUTPUT->render_social_network('windows');
-                                ?>
-                            </ul>
-                        </div>
-                    <?php
-                    }
-                    if ($hassocialnetworks || $hasmobileapps) {
-                    ?>
-                </div>
-            <?php } ?>
-            </div>
-        </div>
-    </div>
     <nav role="navigation">
         <div class="navbar<?php echo ($oldnavbar) ? ' oldnavbar' : ''; ?>">
             <div class="container-fluid navbar-inner">
                 <div class="row-fluid">
-                    <div class="custommenus pull-left">
+                    <div class="custommenus pull-left" style="width: 600px; position: relative;">
                         <a href="/" class="logo"></a>
+                        <?php
+                         global $cm;
+                        if(isset($cm)) {
+                        ?>
+                        <a href="/mod/rtw/ajax.php?id=<?php echo $cm->id ?>&c=common&a=forum" class="nav_forum colorbox">
+                            <img style="height: 30px" src="/theme/essential/pix/forum.png"/>
+                            Thảo luận
+                        </a>
+                        <a href="/mod/rtw/ajax.php?id=<?php echo $cm->id ?>&c=common&a=resources" class="nav_resources colorbox">
+                            <img style="height: 30px" src="/theme/essential/pix/docs.png"/>
+                            Tài liệu
+                        </a>
+                        <?php
+                        }
+                        ?>
                     </div>
-                    <div class="pull-right">
-                        <div class="usermenu">
+                    <div class="pull-right" >
+                        <?php
+                        if(isset($cm)) {
+                        ?>
+                        <a href="/mod/rtw/ajax.php?id=<?php echo $cm->id ?>&c=common&a=help" class="click_help colorbox">
+                            <img width="42" height="58" src="/theme/essential/pix/thanden.png"/>
+                        </a>
+                        <?php
+                        }
+                        ?>
+                        <div class="usermenu" style="margin-top: 15px;">
                             <?php echo $OUTPUT->custom_menu_user(); ?>
                         </div>
-                        <div class="messagemenu">
+                        <div class="messagemenu" style="margin-top: 15px;">
                             <?php echo $OUTPUT->custom_menu_messages(); ?>
                         </div>
                     </div>
