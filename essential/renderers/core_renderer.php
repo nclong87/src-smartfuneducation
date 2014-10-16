@@ -573,7 +573,7 @@ class theme_essential_core_renderer extends core_renderer
 
             // Output Profile link
             $userurl = new moodle_url('#');
-            $userpic = parent::user_picture($USER, array('link' => false));
+            $userpic = parent::user_picture($USER, array('link' => false,'size'=>50));
             $caret = '<i class="fa fa-caret-right"></i>';
             $userclass = array('class' => 'dropdown-toggle', 'data-toggle' => 'dropdown');
 

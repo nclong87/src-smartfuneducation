@@ -50,7 +50,7 @@ if ((get_config('theme_essential', 'enablealternativethemecolors1')) ||
 }
 
 $THEME->sheets[] = 'custom';
-$THEME->sheets[] = 'rtw';
+$THEME->sheets[] = 'rtw';  
 
 $THEME->supportscssoptimisation = false;
 

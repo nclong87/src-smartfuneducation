@@ -24,47 +24,11 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-if (empty($PAGE->layout_options['nofooter'])) {
-    ?>
-    <footer role="contentinfo" id="page-footer">
-        <div class="container-fluid">
-            <?php echo theme_essential_edit_button('theme_essential_footer'); ?>
-            <div class="row-fluid footerblocks">
-                <div class="span4 pull-left">
-                    <div class="column">
-                        <?php echo $OUTPUT->blocks('footer-left'); ?>
-                    </div>
-                </div>
-                <div class="span4 center">
-                    <div class="column">
-                        <?php echo $OUTPUT->blocks('footer-middle'); ?>
-                    </div>
-                </div>
-                <div class="span4 pull-right">
-                    <div class="column">
-                        <?php echo $OUTPUT->blocks('footer-right'); ?>
-                    </div>
-                </div>
-            </div>
-            <div class="footerlinks row-fluid">
-                <hr/>
-                <span class="helplink"><?php echo page_doc_link(get_string('moodledocslink')); ?></span>
-                <?php if ($hascopyright) { ?>
-                    <span class="copy">&copy;<?php echo date("Y") . ' ' . $hascopyright; ?></span>
-                <?php } ?>
-                <?php if ($hasfootnote) {
-                    echo '<div class="footnote span12">' . $hasfootnote . '</div>';
-                } ?>
-            </div>
-            <div class="footerperformance row-fluid">
-                <?php echo $OUTPUT->standard_footer_html(); ?>
-            </div>
-        </div>
-    </footer>
-    <a href="#top" class="back-to-top" ><i class="fa fa-angle-up "></i></a>
-<?php } ?>
 
-    <script type="text/javascript">
+?>
+<img src="/mod/rtw/pix/footerbgr.png" style="width: 99%; position: fixed; bottom: 0px; left: 0px; z-index: -1;"/>
+<div id="rtw-footer">©2014 smartfuneducation.com</div>
+<script type="text/javascript">
         jQuery(document).ready(function () {
             var offset = 220;
             var duration = 500;
@@ -81,7 +45,7 @@ if (empty($PAGE->layout_options['nofooter'])) {
                 jQuery('html, body').animate({scrollTop: 0}, duration);
                 return false;
             });
-
+            //jQuery("a.colorbox").colorbox();
             /*jQuery('.navbar').affix({
                 offset: {
                     top: $('header').height()
