@@ -21,8 +21,9 @@
                     shuffle($pos);
                     foreach ($data[$i] as $groupObj) {
                         $num = rtw_pick_one($pos);
-                        echo '<div class="pos pos'.$num.'" title="'.$groupObj->name.'">';
+                        echo '<div class="pos pos'.$num.'" data-ref="'.$groupObj->name.'">';
                         print_group_picture($groupObj, $course->id);
+                        //echo '<div class="bubbleInfo"><div class="popup">'.$groupObj->name.'</div></div>';
                         echo '</div>';
                     }
                 }
@@ -37,3 +38,14 @@
         <?php echo $widget_player_info?>
     </div>
 </div>
+<script>
+$(document).ready(function() {
+    $.each($('.level .pos'),function (){
+        var title = $(this).attr("data-ref");
+        $(this).frosty({
+            content: '<div style="display:block;padding:10px">'+title+'</div>',
+            html: true
+        });
+    });
+});
+</script>
