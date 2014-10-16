@@ -73,11 +73,9 @@ $rtwoutput->header();
 $rtwoutput->{$action}();
 $rtwoutput->footer();
 ?>
-<img src="/mod/rtw/pix/footerbgr.png" style="width: 99%; position: fixed; bottom: 0px; left: 0px;"/>
-<div id="rtw-footer">©2014 smartfuneducation.com</div>
 <script>
 $(document).ready(function(){
-    $(".custommenus.pull-left").html('<a href="/" class="logo"></a>');
+    //$(".custommenus.pull-left").html('<a href="/" class="logo"></a>');
     $("a.colorbox").colorbox();
 });
 </script>
