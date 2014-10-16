@@ -1,4 +1,4 @@
-<div style="display: block;text-align: center">
+<div id="rtw_content" style="display: block;text-align: center">
     <video
     id="video-active"
     class="video-active"
@@ -8,7 +8,7 @@
     <source src="<?php echo $config_rtw->paths->video.$video->url?>" type="video/mp4">
 </video>
     <br clear="all">
-    <a class="button" href="/mod/rtw/view.php?id=<?php echo $course_module->id?>&c=map">Trở về Map</a>
+    <a class="button" href="/mod/rtw/view.php?id=<?php echo $course_module->id?>&c=map&a=level&l=<?php echo $player_info->current_level?>">Trở về Map</a>
 </div>
 <script>
 var rand_numbers = <?php echo $rands?>;

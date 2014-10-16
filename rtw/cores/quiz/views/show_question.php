@@ -1,4 +1,4 @@
-<div style="display: block;text-align: left;padding: 20px">
+<div id="rtw_content">
     <h1><?php echo $question->questiontext?></h1>
     <form id="submitForm">
         <?php

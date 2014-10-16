@@ -57,6 +57,7 @@ $PAGE->requires->js('/mod/rtw/js/jquery.colorbox-min.js', true);
 $PAGE->requires->js('/mod/rtw/js/jquery.blockUI.js', true);
 $PAGE->requires->js('/mod/rtw/js/utils.js', true);
 $PAGE->requires->css('/mod/rtw/media/colorbox.css', true);
+$PAGE->requires->css('/mod/rtw/media/rtw_style.css', true);
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
 $PAGE->set_pagelayout('login');
@@ -71,3 +72,12 @@ $rtwoutput = $PAGE->get_renderer('mod_rtw');
 $rtwoutput->header();
 $rtwoutput->{$action}();
 $rtwoutput->footer();
+?>
+<img src="/mod/rtw/pix/footerbgr.png" style="width: 99%; position: fixed; bottom: 0px; left: 0px;"/>
+<div id="rtw-footer">©2014 smartfuneducation.com</div>
+<script>
+$(document).ready(function(){
+    $(".custommenus.pull-left").html('<a href="/" class="logo"></a>');
+    $("a.colorbox").colorbox();
+});
+</script>

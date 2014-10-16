@@ -18,15 +18,15 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
     	
     	//Khoá học
     	global $COURSE;
-    	$coursename = optional_param('coursename', '', PARAM_TEXT);
     	$this->set_var('coursename', $COURSE->fullname);
     	
-    	$currentgroup=get_current_group($COURSE->id);
+    	$currentgroups = groups_get_user_groups($this->course->id, $this->user->id);
+        $currentgroup = isset($currentgroups[0][0])?$currentgroups[0][0]:'';
     	$isgrouped = true;
-    	if(empty($currentgroup))
-    		$isgrouped = false;
+    	if(empty($currentgroup)) {
+            $isgrouped = false;
+        }
     	
-    	$isbelonggroup = optional_param('isbelonggroup', '', PARAM_BOOL);
     	$this->set_var('isbelonggroup', $isgrouped);
     	
     	$this->doRender();
@@ -37,9 +37,10 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         $this->_file = 'guess.php';
         global $COURSE;
         global $DB;
-        global $USER;
         
-        $currentgroup=get_current_group($COURSE->id);
+        $currentgroups = groups_get_user_groups($this->course->id, $this->user->id);
+        $currentgroup = isset($currentgroups[0][0])?$currentgroups[0][0]:'';
+        
         $group = $DB->get_record('groups', array('id' => $currentgroup));
         
         //Kiểm tra nếu game đã chơi xong --> chuyển qua trang kết quả
@@ -110,7 +111,8 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         //Get id nhóm của mình: get_current_group($COURSE->id);
         //Get danh sách lớp
         $role = $DB->get_record('role', array('shortname' => 'student'));
-        $context = get_context_instance(CONTEXT_COURSE, $COURSE->id);
+        $context = context_course::instance($COURSE->id);
+                //get_context_instance(CONTEXT_COURSE, $COURSE->id);
         $students = get_role_users($role->id, $context);
         $this->set_var('students', $students);
         //var_dump($students);
@@ -142,7 +144,8 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
     	$coursename = optional_param('coursename', '', PARAM_TEXT);
     	$this->set_var('coursename', $COURSE->fullname);
     	
-    	$currentgroup=get_current_group($COURSE->id);
+        $currentgroups = groups_get_user_groups($this->course->id, $this->user->id);
+        $currentgroup = isset($currentgroups[0][0])?$currentgroups[0][0]:'';
     	
     	//Thời điểm gửi
     	$now = new \DateTime();

@@ -1,3 +1,3 @@
-<div style="display: block;text-align: center">
+<div id="rtw_content">
      This is question page
 </div>

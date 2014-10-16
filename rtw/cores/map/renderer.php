@@ -30,32 +30,40 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         if($level > $this->_player_info->current_level) {
             redirect('/mod/rtw/view.php?id='.$this->course_module->id.'&c=map', 'Level của bạn chưa đủ để chơi map này, hay cố gắng lên nhé :)');
         }
-        $currentgroup=get_current_group($this->course->id);
-        $groupmembers = groups_get_members($currentgroup, 'u.*');
         $current_members = array();
-        $uids = array();
-        foreach ($groupmembers as $member) {
-            $uids[] = $member->id;
-        }
-        if(!empty($uids)) {
-            $rows = \mod_rtw\db\game::getInstance()->findLastGameByUids($this->course->id, $uids);
-            $pos = array(0,1,2,3);
-            foreach ($rows as $row) {
-                if(isset($groupmembers[$row->user_id])) {
-                    $member = $groupmembers[$row->user_id];
-                    $member->picture = $OUTPUT->user_picture($member, array('size'=>30));
-                    $member->pos = rtw_pick_one($pos);
-                    $current_members[$row->module_name][] = $member;
+        $currentgroup = groups_get_user_groups($this->course->id, $this->user->id);
+        $group_id = isset($currentgroup[0][0])?$currentgroup[0][0]:'';
+        if($group_id != '') {
+            $groupmembers = groups_get_members($group_id, 'u.*');
+            $uids = array();
+            foreach ($groupmembers as $member) {
+                $uids[] = $member->id;
+            }
+            if(!empty($uids)) {
+                $rows = \mod_rtw\db\game::getInstance()->findLastGameByUids($this->course->id, $uids);
+                $pos = array(0,1,2,3);
+                foreach ($rows as $row) {
+                    if(isset($groupmembers[$row->user_id])) {
+                        $member = $groupmembers[$row->user_id];
+                        $member->picture = $OUTPUT->user_picture($member, array('size'=>30));
+                        $member->pos = rtw_pick_one($pos);
+                        $current_members[$row->module_name][] = $member;
+                    }
+
                 }
-                
             }
         }
-        
         //rtw_debug($current_members);
         
         $this->set_var('widget_player_info', $this->widget('player_info'));
-        $this->set_var('quests', (array)  $this->_config_rtw->levels->lv1->quests);
+        $play_history = mod_rtw\db\game::getInstance()->getPlayHistory($this->_player_info->id,  $this->_player_info->current_level);
+        $array_games = array();
+        foreach ($play_history as $ele) {
+            $array_games[$ele->module_name] = true;
+        }
+        $this->set_var('quests', (array)$this->_config_rtw->levels->lv1->quests);
         $this->set_var('current_members',$current_members);
+        $this->set_var('array_games',$array_games);
         $this->doRender('level.php');
     }
 

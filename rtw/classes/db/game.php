@@ -71,5 +71,19 @@ where t0.status = 1 and t1.course_id = ? and t2.id in ('.  implode(',', $uids).'
 ) t2 on t1.id = t2.game_id';
        return $this->_db->get_records_sql($sql, array($course_id));
     }
+    
+    public function getPlayHistory($player_id,$level) {
+        $sql = 'select  t2.module_name,t1.`level`,count(*) from mdl_rtw_player_game t0 inner join mdl_rtw_games t1 on t0.game_id = t1.id inner join mdl_rtw_quests t2 on t1.quest_id = t2.id
+where t0.status = 1 and t1.status = 1 and t2.status = 1 and player_id = ? and t1.`level` = ?
+group by t2.module_name,t1.`level`';
+        return $this->_db->get_records_sql($sql, array($player_id,$level));
+    }
+    
+    public function getTopPlayerActivity($course_id) {
+        //$sql = 'select t2.*,t1.id as player_id,t1.current_coin,t1.current_level,t1.current_xp,count(*) as play_time from mdl_rtw_player_game t0 inner join mdl_rtw_players t1 on t0.player_id = t1.id inner join mdl_user t2 on t1.user_id = t2.id where t1.course_id = ? and t0.status =1 and t1.status = 1 group by t1.user_id order by count(*) desc limit 0,10';
+        $sql = 'select t1.*,t0.id as `player_id`,t0.course_id,t0.current_coin,t0.current_level,t0.current_xp from mdl_rtw_players t0 inner join mdl_user t1 on t0.user_id = t1.id
+where t0.status = 1 and t0.course_id = ? order by t0.current_coin desc limit 0,5';
+        return $this->_db->get_records_sql($sql, array($course_id));
+    }
 }
 
