@@ -1,23 +1,6 @@
 /** General styles (scope: all of lesson) **/
-*, p {
-  font-family: Helvetica,arial !important;
-}
 #page-header {
 display: none;
-}
-.custommenus.pull-left a.logo {
-background: url("/mod/rtw/pix/logo.jpg");
-background-repeat: no-repeat;
-display: block;
-height: 69px;
-width: 258px;
-
-}
-.navbar, .navbar-inner {
-background-color: #e99719 !important;
-box-shadow: 0 1px 3px #222;
-display: block;
-position: relative !important;
 }
 #region-main {
     margin-top: 0 !important;
@@ -38,15 +21,6 @@ margin-bottom: 10px !important;
 }
 #page-footer {
   display: none !important;
-}
-#rtw-footer {
-bottom: 0;
-display: block;
-float: left;
-margin-bottom: 10px;
-position: relative;
-text-align: center;
-width: 100%;
 }
 #rtw_content {
 background-color: rgb(251, 251, 251);
@@ -145,45 +119,45 @@ height: 100%;
 width: 100%;
 }
 #map .level .pos {
+background-color: #fff;
 border: 2px solid;
-border-radius: 25px;
+border-radius: 20px;
 display: block;
 font-weight: bold;
-height: 40px;
+height: 35px;
+overflow: hidden;
 position: absolute;
-width: 100px;
-z-index: 999;
 text-align: center;
+width: 35px;
+z-index: 999;
 }
 #map .pos.pos0 {
-background-color: springgreen;
-left: -95px;
-top: -40px;
+left: -25px;
+top: -25px;
 }
 #map .pos.pos1 {
-background-color: paleturquoise;
-left: 10px;
-top: -50px;
+left: 25px;
+top: -30px;
 }
 #map .pos.pos2 {
-background-color: violet;
-right: -107px;
-top: 0;
+right: -30px;
+top: -20px;
 }
 #map .pos.pos3 {
-background-color: seashell;
-right: -107px;
-top: 50px;
+right: -30px;
+top: 25px;
 }
 #map .pos.pos4 {
-background-color: salmon;
-right: -9px;
-top: 80px;
+bottom: -30px;
+right: -11px;
 }
 #map .pos.pos5 {
-background-color: thistle;
-left: -110px;
-top: 34px;
+bottom: -20px;
+left: 5px;
+}
+#map .pos.pos6 {
+bottom: 15px;
+left: -35px;
 }
 #map .level span.title {
 background-color: #fff;

@@ -58,6 +58,7 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
         if(!isset($this->_PATH) || !isset($this->_file)) {
             throw new Exception('Error System');
         }
+        $this->_variables['course'] = $this->course;
         $this->_variables['course_module'] = $this->course_module;
         $this->_variables['player_info'] = $this->_player_info;
         $this->_variables['config_rtw'] = $this->_config_rtw;

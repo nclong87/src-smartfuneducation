@@ -17,11 +17,13 @@
                 ?>
                 <?php
                 if(isset($data[$i])) {
-                    $pos = array(0,1,2,3,4,5);
+                    $pos = array(0,1,2,3,4,5,6);
                     shuffle($pos);
-                    foreach ($data[$i] as $group_name) {
+                    foreach ($data[$i] as $groupObj) {
                         $num = rtw_pick_one($pos);
-                        echo '<div class="pos pos'.$num.'"><span class="dot"></span>'.$group_name.'</div>';
+                        echo '<div class="pos pos'.$num.'" title="'.$groupObj->name.'">';
+                        print_group_picture($groupObj, $course->id);
+                        echo '</div>';
                     }
                 }
                 ?>

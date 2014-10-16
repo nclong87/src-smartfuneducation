@@ -16,7 +16,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             if(!isset($data[$level])) {
                 $data[$level] = array();
             }
-            $data[$level][] = $obj->name;
+            $data[$level][] = $obj;
         }
         $this->set_var('data',$data);
         $this->set_var('widget_player_info', $this->widget('player_info'));

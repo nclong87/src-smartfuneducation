@@ -14,6 +14,15 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
     public function render_trend() {
         $this->doRender('trend.php');
     }
+    public function render_forum() {
+        $this->doRender('forum.php');
+    }
+    public function render_resources() {
+        $this->doRender('resources.php');
+    }
+    public function render_help() {
+        $this->doRender('help.php');
+    }
     public function render_top_player_activity() {
         global $OUTPUT;
         $top_player_activity = mod_rtw\db\game::getInstance()->getTopPlayerActivity($this->course->id);
