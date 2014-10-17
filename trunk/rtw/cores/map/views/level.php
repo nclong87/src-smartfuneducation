@@ -16,7 +16,7 @@
             <center><a href="<?php echo $link?>" class="<?php echo $icon_class?>"></a></center>
             <span class="quest_name"><?php echo $ele->name?></span>
             <?php
-            if(isset($current_members[$ele->controller])) {
+            if($game != 'warmup' && isset($current_members[$ele->controller])) {
                 foreach ($current_members[$ele->controller] as $ele1) {
                     echo '<div class="member pos'.$ele1->pos.'">'.$ele1->picture.'<span class="name">'.$ele1->firstname .' '. $ele1->lastname.'</span></div>';
                 }
