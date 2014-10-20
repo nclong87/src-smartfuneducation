@@ -1,6 +1,7 @@
 <?php
 use \mod_rtw\core\log;
 use mod_rtw\core\player;
+use mod_rtw\db\game;
 abstract class mod_rtw_renderer_base extends plugin_renderer_base {
     
     public function __construct(\moodle_page $page, $target) {
@@ -94,6 +95,42 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
         $var=ob_get_contents(); 
         ob_end_clean();
         return $var;
+    }
+    
+    /**
+     * 
+     * @param int $expired_time Thoi gian (giay) co hieu luc cua game, neu het thoi gian nay se tao 1 game moi
+     * @return Object id,player_id,game_id,create_time,expired_time,status
+     * @throws Exception
+     */
+    protected function initGame($expired_time = 300) {
+        
+        //Lay thong tin game theo level hien tai cua nguoi choi
+        $game = game::getInstance()->findByQuest('quiz', $this->_player_info->current_level);
+        if($game == false) {
+            throw new Exception(get_string('no_data', 'mod_rtw'));
+        }
+        
+        //Lay game quiz gan day nhat cua nguoi choi
+        $last_game = game::getInstance()->findLastGame($game->id, $this->_player_info->id);
+        $is_new_game = false;
+        if($last_game == false) {
+            // Player chua choi game nay -> Tao game moi cho player
+            $current_game = game::getInstance()->createNewGame($this->_player_info->id, $game->id, $expired_time);
+            $is_new_game = true;
+        } else {
+            // Player da choi game nay luc $last_game->create_time;
+            if(date_utils::isPast($last_game->expired_time)) {
+                // Game het hieu luc -> Tao game moi cho player
+                $current_game = game::getInstance()->createNewGame($this->_player_info->id, $game->id, $expired_time);
+                $is_new_game = true;
+            } else {
+                // Game van con hieu luc -> Su dung game nay
+                $current_game = $last_game;
+            }
+        }
+        $current_game->is_new_game = $is_new_game;
+        return $current_game;
     }
     
     /**
