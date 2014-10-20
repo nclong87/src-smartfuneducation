@@ -15,42 +15,16 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
     }
     
     public function render_index() {
-        //Lay thong tin nguoi choi
-        $player_info = player::getInstance()->getPlayerInfo();
-        
-        //Lay thong tin game theo level hien tai cua nguoi choi
-        $game = game::getInstance()->findByQuest('quiz', $player_info->current_level);
-        if($game == false) {
-            throw new Exception(get_string('no_data', 'mod_rtw'));
-        }
-        
-        //Lay game quiz gan day nhat cua nguoi choi
-        $last_game = game::getInstance()->findLastGame($game->id, $player_info->id);
-        $is_new_game = false;
-        if($last_game == false) {
-            // Player chua choi game nay -> Tao game moi cho player
-            $current_game = game::getInstance()->createNewGame($player_info->id, $game->id, 300);
-            $is_new_game = true;
-        } else {
-            // Player da choi game nay luc $last_game->create_time;
-            if(date_utils::isPast($last_game->expired_time)) {
-                // Game het hieu luc -> Tao game moi cho player
-                $current_game = game::getInstance()->createNewGame($player_info->id, $game->id, 300);
-                $is_new_game = true;
-            } else {
-                // Game van con hieu luc -> Su dung game nay
-                $current_game = $last_game;
-            }
-        }
+        //Khoi tao game
+        $current_game = $this->initGame(300);
         
         $num_question = 3;
         //unset($_SESSION['quiz']);
-        if($is_new_game || !isset($_SESSION['quiz'])) {
+        if($current_game->is_new_game == true || !isset($_SESSION['quiz'])) {
+            // Lay danh sach cau hoi theo category trong kho cau hoi moodle
             unset($_SESSION['quiz']);
-            $category = question_categories::getInstance()->findCategoryByLevelAndQuest($player_info->current_level, 'quiz');
-            //$quba = question_engine::load_questions_usage_by_activity(1);
+            $category = question_categories::getInstance()->findCategoryByLevelAndQuest($this->_player_info->current_level, 'quiz');
             $questions = question_categories::getInstance()->get_questions_category($category,$num_question);
-            //id,quiz_id,game_player_id,question_id,show_time,start_time,submit_time,is_correct,coin_id
             $data = array(
                 'game_player_id' => $current_game->id,
                 'start_time' => date_utils::getCurrentDateSQL(),
