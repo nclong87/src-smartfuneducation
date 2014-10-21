@@ -47,7 +47,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
                         $member = $groupmembers[$row->user_id];
                         $member->picture = $OUTPUT->user_picture($member, array('size'=>30));
                         $member->pos = rtw_pick_one($pos);
-                        $current_members[$row->module_name][] = $member;
+                        $current_members[$row->quest][] = $member;
                     }
 
                 }
@@ -59,7 +59,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         $play_history = mod_rtw\db\game::getInstance()->getPlayHistory($this->_player_info->id,  $this->_player_info->current_level);
         $array_games = array();
         foreach ($play_history as $ele) {
-            $array_games[$ele->module_name] = true;
+            $array_games[$ele->quest] = true;
         }
         $this->set_var('quests', (array)$this->_config_rtw->levels->lv1->quests);
         $this->set_var('current_members',$current_members);

@@ -1,2 +1,10 @@
 ALTER TABLE `mdl_rtw_players` ADD `lottery_turn` INT(5) NOT NULL DEFAULT '0' AFTER `current_xp`;
 
+
+ALTER TABLE `mdl_rtw_player_game` ADD `quest` VARCHAR(50) NOT NULL AFTER `player_id`;
+
+ALTER TABLE `mdl_rtw_player_game` ADD `level` INT(2) NOT NULL DEFAULT '1' AFTER `quest_id`;
+
+ALTER TABLE `mdl_rtw_player_game` DROP FOREIGN KEY `FK_mdl_rtw_player_game_game`;
+
+ALTER TABLE `mdl_rtw_player_game` DROP `game_id`;
