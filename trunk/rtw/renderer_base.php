@@ -32,6 +32,8 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
             'course_module_id' => $this->course_module->id
         );
         \mod_rtw\db\player_activities::getInstance()->insert($player_activities, false, true);
+        $this->_controller = $controller;
+        $this->_action = $action;
         //rtw_debug((array)$this->_config_rtw->levels->lv1->quests);
     }
     protected $course;
@@ -42,6 +44,9 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
     protected $_variables = array();
     protected $_player_info;
     protected $_config_rtw;
+    protected $_controller;
+    protected $_action;
+
     /**
      *
      * @var log 
@@ -101,29 +106,23 @@ abstract class mod_rtw_renderer_base extends plugin_renderer_base {
     /**
      * 
      * @param int $expired_time Thoi gian (giay) co hieu luc cua game, neu het thoi gian nay se tao 1 game moi
-     * @return Object id,player_id,game_id,create_time,expired_time,status
+     * @return Object id,player_id,level,quest,create_time,expired_time,status
      * @throws Exception
      */
     protected function initGame($expired_time = 300) {
         
-        //Lay thong tin game theo level hien tai cua nguoi choi
-        $game = game::getInstance()->findByQuest('quiz', $this->_player_info->current_level);
-        if($game == false) {
-            throw new Exception(get_string('no_data', 'mod_rtw'));
-        }
-        
-        //Lay game quiz gan day nhat cua nguoi choi
-        $last_game = game::getInstance()->findLastGame($game->id, $this->_player_info->id);
+        //Lay game gan day nhat cua nguoi choi (tinh theo thoi gian expired time)
+        $last_game = game::getInstance()->findLastGame($this->_controller, $this->_player_info->id);
         $is_new_game = false;
         if($last_game == false) {
             // Player chua choi game nay -> Tao game moi cho player
-            $current_game = game::getInstance()->createNewGame($this->_player_info->id, $game->id, $expired_time);
+             $current_game = game::getInstance()->createNewGame($this->_player_info->id, $this->_controller, $this->_player_info->current_level, $expired_time);
             $is_new_game = true;
         } else {
             // Player da choi game nay luc $last_game->create_time;
             if(date_utils::isPast($last_game->expired_time)) {
                 // Game het hieu luc -> Tao game moi cho player
-                $current_game = game::getInstance()->createNewGame($this->_player_info->id, $game->id, $expired_time);
+                $current_game = game::getInstance()->createNewGame($this->_player_info->id, $this->_controller, $this->_player_info->current_level, $expired_time);
                 $is_new_game = true;
             } else {
                 // Game van con hieu luc -> Su dung game nay
