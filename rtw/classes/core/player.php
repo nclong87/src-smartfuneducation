@@ -63,6 +63,7 @@ class player {
             'last_update' => date_utils::getCurrentDateSQL()
         );
         \mod_rtw\db\player::getInstance()->update($this->_player_info->id, $data);
+        $this->_player_info->current_coin = $coin_after;
         return $coin_id;
     }
     
@@ -86,8 +87,13 @@ class player {
             'last_update' => date_utils::getCurrentDateSQL()
         );
         \mod_rtw\db\player::getInstance()->update($this->_player_info->id, $data);
-        unset($this->_player_info);
+        $this->_player_info->current_xp = $xp_after;
         return $exp_id;
+    }
+    
+    public function incrTurn($num_turn) {
+        \mod_rtw\db\game_lottery::getInstance()->addTurn($this->_player_info->id, $num_turn);
+        $this->_player_info->lottery_turn += $num_turn;
     }
     
 }

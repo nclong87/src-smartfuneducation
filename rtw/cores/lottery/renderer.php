@@ -9,7 +9,8 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
     
     public function render_index() {
         //rtw_debug($this->_player_info);
-        $rewardArray = array(1,2,3,4,5,6,7,8,9,10);
+        global $CONFIG_RTW;
+        $rewardArray = array_keys((array)$CONFIG_RTW->lottery->rate);
         shuffle($rewardArray);
         $rad = 30;
         $tmpArray = array_reverse($rewardArray);
@@ -31,21 +32,30 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             'response_message' => '',
             'response_data' => ''
         );
-        $result = game_lottery::getInstance()->turn($this->_player_info->id,$current_game);
-        if($result[0] != 1) {
+        try {
+            if($this->_player_info->lottery_turn < 1) {
+                $response['response_message'] = 'Bạn không có lượt quay nào, vui lòng tích lũy lượt quay để tham gia quay số!';
+            } else {
+                $result = game_lottery::getInstance()->turn($this->_player_info->id,$current_game);
+                if($result[0] != 1) {
+                    $response['response_message'] = 'Kiểm tra dữ liệu thất bại, vui lòng thử lại sau!';
+                } else {
+                    $response['response_code'] = 1;
+                    $response['response_message'] = 'Xin chúc mừng, bạn đã nhận được '.  number_format($result[1]).' coin';
+                    $response['response_data'] = $result[1];
+                }
+            }
+        } catch (Exception $exc) {
+            $this->_log->log($exc, 'error');
             $response['response_message'] = 'Kiểm tra dữ liệu thất bại, vui lòng thử lại sau!';
-        } else {
-            $response['response_code'] = 1;
-            $response['response_message'] = 'Xin chúc mừng, bạn đã nhận được '.  number_format($result[1]).' coin';
-            $response['response_data'] = $result[1];
         }
+        
         header('Content-Type: application/json');
         echo json_encode($response);
     }
     
     public function render_test() {
-        $data = mod_rtw\db\coin::getInstance()->query(array('player_game_id' => 86),true);
-        $this->set_var('data', $data);
-        $this->doRender('test.php');
+        mod_rtw\core\player::getInstance()->incrTurn(1);
+        rtw_debug(mod_rtw\core\player::getInstance()->getPlayerInfo());
     }
 }
