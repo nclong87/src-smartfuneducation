@@ -1,0 +1,2 @@
+ALTER TABLE `mdl_rtw_players` ADD `lottery_turn` INT(5) NOT NULL DEFAULT '0' AFTER `current_xp`;
+

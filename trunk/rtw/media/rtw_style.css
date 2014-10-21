@@ -410,3 +410,20 @@ text-align: right;
 width: 90px;
 font-size: 1em;
 }
+
+#lottery_container {
+display: block;
+position: relative;
+width: 400px;
+}
+.play_icon {
+background-image: url("/mod/rtw/pix/play.png");
+background-repeat: no-repeat;
+cursor: pointer;
+display: block;
+height: 96px;
+left: 155px;
+position: absolute;
+top: 175px;
+width: 94px;
+}
