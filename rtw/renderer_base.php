@@ -2,6 +2,7 @@
 use \mod_rtw\core\log;
 use mod_rtw\core\player;
 use mod_rtw\db\game;
+use mod_rtw\core\date_utils;
 abstract class mod_rtw_renderer_base extends plugin_renderer_base {
     
     public function __construct(\moodle_page $page, $target) {

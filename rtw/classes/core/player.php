@@ -42,11 +42,12 @@ class player {
         return $this->_player_info;
     }
     
-    /**
-     * 
-     * @param number $game_id
-     * @param number $coin_change
-     */
+   /**
+    * 
+    * @param long $game_id Id in table mdl_rtw_player_game
+    * @param int $coin_change Number coin change
+    * @return long Id in table mdl_rtw_coins
+    */
     public function change_coin($game_id,$coin_change) {
         $coin_after = $this->_player_info->current_coin + $coin_change;
         $data = array(
