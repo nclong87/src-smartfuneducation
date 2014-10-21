@@ -3,6 +3,7 @@
         <h2>Bạn đang có <font color="orange"><?php echo number_format($player_info->lottery_turn) ?></font> lượt quay số</h2>
         <center><div id="lottery_container"></div></center>
         <br clear="all"/>
+        <a class="button" href="/mod/rtw/view.php?id=<?php echo $course_module->id?>&c=map&a=level&l=<?php echo $player_info->current_level?>">Trở về Map</a>
     </div>
     <div id="right_column">
         <?php echo $widget_player_info?>
@@ -12,7 +13,7 @@
 <script defer="defer">
     //constants
     var MAX_ANGULAR_VELOCITY = 360 * 5;
-    var NUM_WEDGES = 10;
+    var NUM_WEDGES = <?php echo count($rewardArray)?>;
     var WHEEL_RADIUS = 200;
     var ANGULAR_FRICTION = 0.2;
 

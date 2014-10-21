@@ -25,16 +25,22 @@ class game_lottery extends base {
         parent::__construct($tableName, $primaryKey);
     }
  
+    /**
+     * 
+     * @param long $player_id
+     * @param object $current_game mdl_rtw_player_game
+     * @return array response_code, pluscoin
+     */
     public function turn($player_id,$current_game) {
         $transaction = $this->_db->start_delegated_transaction();
         try {
             $array = $this->getRandomArray();
             $plus_coin = $array[rand(0, count($array) - 1)];
+            //$plus_coin = 7;
             $sql = 'update mdl_rtw_players set lottery_turn = lottery_turn - 1 where id = ?';
             $this->_db->execute($sql, array($player_id));
             
             $coin_id = \mod_rtw\core\player::getInstance()->change_coin($current_game->id, $plus_coin);
-            
             $data= array(
                 'game_player_id' => $current_game->id,
                 'result_coin' => $plus_coin,
@@ -44,11 +50,9 @@ class game_lottery extends base {
             game_lottery::getInstance()->insert($data);
             
             $transaction->allow_commit();
-            $this->_db->commit_delegated_transaction($transaction);
             return array(1,$plus_coin);
         } catch (Exception $exc) {
-            //$transaction->rollback($exc);
-            $this->_log->log($exc, 'error');
+            $transaction->rollback($exc);
         }
         return array(0,0);
     }
@@ -62,6 +66,17 @@ class game_lottery extends base {
             }
         }
         return $array;
+    }
+    
+    /**
+     * 
+     * @param long $player_id
+     * @param int $num_turn So lan quay so cong vao
+     */
+    public function addTurn($player_id,$num_turn) {
+        $sql = 'update mdl_rtw_players set lottery_turn = lottery_turn + ? where id = ?';
+        $this->_db->execute($sql, array($num_turn,$player_id));
+        
     }
 
 }
