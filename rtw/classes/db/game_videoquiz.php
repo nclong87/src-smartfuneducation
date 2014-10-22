@@ -28,10 +28,11 @@ class game_videoquiz extends base {
      * 
      * @param number $player_level
      * @param number $num
+     * @param String $quest Queust code
      * @return mix id,embed_code,url,`level`,status,length
      */
-    public function getRandomVideo($player_level,$num = 1) {
-        return $this->_db->get_record_sql('select * from mdl_rtw_videoquizs where `level` = ? and status = 1 order by rand() limit 0,'.$num,array($player_level));
+    public function getRandomVideo($player_level,$num = 1,$quest = 'videoquiz') {
+        return $this->_db->get_record_sql('select * from mdl_rtw_videoquizs where `level` = ? and status = 1 and quest = ? order by rand() limit 0,'.$num,array($player_level,$quest));
     }
     
     /**

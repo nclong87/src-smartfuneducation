@@ -91,9 +91,28 @@ class player {
         return $exp_id;
     }
     
-    public function incrTurn($num_turn) {
-        \mod_rtw\db\game_lottery::getInstance()->addTurn($this->_player_info->id, $num_turn);
+    /**
+     * 
+     * @param Integer $num_turn So lan quay so cong (tru)
+     * @param Long $game_id Id game
+     */
+    public function changeTurn($num_turn,$game_id = null) {
+        $turn_before = $this->_player_info->lottery_turn;
         $this->_player_info->lottery_turn += $num_turn;
+        $lottery_turn_after = $this->_player_info->lottery_turn;
+        $data = array(
+            'player_game_id' => $game_id,
+            'turn_change' => $num_turn,
+            'create_time' => date_utils::getCurrentDateSQL(),
+            'turn_before' => $turn_before,
+            'turn_after' => $lottery_turn_after
+        );
+        \mod_rtw\db\lotteryturn::getInstance()->insert($data);
+        $data = array(
+            'lottery_turn' => $lottery_turn_after,
+            'last_update' => date_utils::getCurrentDateSQL()
+        );
+        \mod_rtw\db\player::getInstance()->update($this->_player_info->id, $data);
     }
     
 }

@@ -235,9 +235,9 @@ border: 1px solid #bbb;
 border-radius: 10px;
 box-shadow: 3px 3px 3px #bbb;
 display: block;
-height: 85px;
+height: 110px;
 position: absolute;
-width: 125px;
+width: 200px;
 }
 .quest a.icon_question {
 background: url("/mod/rtw/pix/quest1.png") no-repeat scroll 0px 5px rgba(0, 0, 0, 0);
@@ -267,6 +267,20 @@ display: block;
 height: 70px;
 width: 54px;
 }
+.quest a.icon_videoquest {
+background: url("/mod/rtw/pix/quest2.png") no-repeat scroll 0 -65px rgba(0, 0, 0, 0);
+display: block;
+height: 70px;
+width: 54px;
+}
+
+.quest a.icon_bonus {
+background: url("/mod/rtw/pix/quest2.png") no-repeat scroll 0 -65px rgba(0, 0, 0, 0);
+display: block;
+height: 70px;
+width: 54px;
+}
+
 
 .quest span.quest_name {
 bottom: 5px;
@@ -283,12 +297,20 @@ left: 300px;
 top: 45px;
 }
 .quest.pos1 {
-    left: 90px;
-    top: 150px;
+left: 50px;
+top: 150px;
 }
 .quest.pos2 {
-    left: 500px;
-    top: 150px;
+left: 550px;
+top: 150px;
+}
+.quest.pos3 {
+left: 50px;
+top: 300px;
+}
+.quest.pos4 {
+left: 550px;
+top: 300px;
 }
 
 .quest .member {
