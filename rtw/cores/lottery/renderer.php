@@ -41,7 +41,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
                     $response['response_message'] = 'Kiểm tra dữ liệu thất bại, vui lòng thử lại sau!';
                 } else {
                     $response['response_code'] = 1;
-                    $response['response_message'] = 'Xin chúc mừng, bạn đã nhận được '.  number_format($result[1]).' coin';
+                    $response['response_message'] = 'Xin chúc mừng, bạn đã nhận được '.  number_format($result[1]).' xu';
                     $response['response_data'] = $result[1];
                 }
             }
