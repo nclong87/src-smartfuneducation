@@ -37,8 +37,7 @@ class game_lottery extends base {
             $array = $this->getRandomArray();
             $plus_coin = $array[rand(0, count($array) - 1)];
             //$plus_coin = 7;
-            $sql = 'update mdl_rtw_players set lottery_turn = lottery_turn - 1 where id = ?';
-            $this->_db->execute($sql, array($player_id));
+            \mod_rtw\core\player::getInstance()->changeTurn(-1, $current_game->id);
             
             $coin_id = \mod_rtw\core\player::getInstance()->change_coin($current_game->id, $plus_coin);
             $data= array(
