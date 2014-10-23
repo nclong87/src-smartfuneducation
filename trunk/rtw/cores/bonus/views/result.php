@@ -2,7 +2,7 @@
     <?php
     if($point == 1) {
     ?>
-    <h1 style="color: green">Xin chúc mừng, bạn đã trả lời chính xác!</h1>
+    <h1 style="color: green">Bạn đã trả lời chính xác, bạn thật giống một chuyên gia!</h1>
     <?php
     } else {
     ?>
