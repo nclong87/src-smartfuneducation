@@ -31,7 +31,7 @@
     var time = <?php echo $time?> ;
     var remain_seconds = <?php echo $remain_seconds?> ;
     function doIgnore() {
-        //$.colorbox.close();
+        $.colorbox.close();
     }
     function callAjaxAnswer() {
         var str = $( "#submitForm" ).serialize();
