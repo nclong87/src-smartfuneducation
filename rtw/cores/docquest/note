@@ -1,0 +1,1 @@
+ALTER TABLE `mdl_rtw_videoquizs` ADD `quest` VARCHAR(50) NOT NULL AFTER `length`;
