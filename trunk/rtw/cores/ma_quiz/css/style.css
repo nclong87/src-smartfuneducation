@@ -1,0 +1,74 @@
+#rtw_content {
+    padding: 20px;
+}
+#submitForm {
+    padding: 20px;
+}
+td {
+    padding: 50px;
+    align: center;
+    text-align: center;
+}
+.items-wrapper {
+    clear: both;
+    background-color: #eee;
+    width: 500px;
+    padding: 10px
+}
+ul.items {
+    min-height: 200px;
+}
+.dock-wrapper {
+    display: block;
+    border: solid 2px #ccc;
+    min-height: 30px;
+    margin: 10px;
+}
+
+.dock-label {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 30px;
+    float: left;
+    pading: 5px;
+    text-align: center;
+    width: 60px;
+}
+.items li {
+    list-style: none;
+    width: 180px;
+    margin: 5px 20px;
+    line-height: 30px;
+    height: 30px;
+    background-color: #999;
+    color: #fff;
+    float: left;
+    text-align: center;
+    cursor: all-scroll;
+}
+.dock {
+    width: 180px;
+    float: left;        
+    height: 30px;
+    list-style: none;
+    border-left: solid 2px #999;
+    margin-left: 0px;
+}
+
+.dock li {
+    width: 180px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #999;
+    color: #fff;
+    float: left;
+    text-align: center;
+    cursor: all-scroll;
+    z-index: 999;
+    
+}
+
+#btnGetResult {
+    width: 100px;
+    height: 30px;
+}
