@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="/mod/rtw/cores/ma_quiz/css/style.css"/>
 <div id="rtw_content">
     <h1><?php echo $question->questiontext?></h1>
-    <table>
+    <table id="drag-form-layout">
         <tr style="align:center">
             <td>
                 <div class="items-wrapper">

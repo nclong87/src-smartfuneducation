@@ -240,6 +240,15 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         return true;
     }
 
+    private function get_correct_answers($question) {
+        $correct_answers = array();
+        
+        foreach ($question->options->subquestions as $subquestion) {
+            array_push($correct_answers, array('question' => strip_tags($subquestion->questiontext), 'answer' => strip_tags($subquestion->answertext)));
+        }
+        
+        return $correct_answers;
+    }
     /**
      * Check and render answer page
      **/
@@ -301,7 +310,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             
             $this->set_var('point', $point);
             $this->set_var('style', $style);
-            
+            $this->set_var('correct_answers', $this->get_correct_answers($question));
             game_quiz::getInstance()->update($question->game_quiz_id, $data_update);
             
             unset($_SESSION['ma_quiz']['questions'][$seq]);
