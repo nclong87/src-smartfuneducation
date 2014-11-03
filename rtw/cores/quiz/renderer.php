@@ -71,8 +71,8 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
                 throw new Exception();
             }
             //unset($_SESSION['quiz']['questions'][$time]);
-            $this->set_var('question', $question);
-            $is_multichoice = false;
+            $this->set_var('question', $question);            
+            $is_multichoice = true;
             foreach ($question->options->answers as $obj) {
                 if($obj->fraction == 1) {
                     $is_multichoice = false;
