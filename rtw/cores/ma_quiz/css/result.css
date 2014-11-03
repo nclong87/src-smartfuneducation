@@ -1,0 +1,13 @@
+#result-wrapper  {
+    padding: 20px;
+    margin: 0 auto;
+}
+#result-wrapper table td {
+    padding: 0 50px;
+    margin: 0 20px;
+    border: solid 2px #999;
+}
+#result-wrapper {
+    min-width: 500px;
+    display: block;
+}
