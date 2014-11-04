@@ -47,7 +47,8 @@
                         html:response,
                         'onClosed' : function () {
                             // video.play();
-                            location.reload();
+                            // location.reload();
+                            location.href = "/mod/rtw/view.php?id="+course_module+"&c=picturequest&a=intro";
                         }
                     });
                 }
