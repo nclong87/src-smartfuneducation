@@ -42,6 +42,7 @@ class question_categories extends base {
      */
     function get_questions_category($category, $numquestion, $noparent = false, $recurse = true, $export = true) {
         // Build sql bit for $noparent
+        
         $npsql = '';
         if ($noparent) {
             $npsql = " and parent='0' ";

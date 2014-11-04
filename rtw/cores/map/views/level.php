@@ -1,5 +1,5 @@
 <div style="display: block">
-    <div id="left_column" style="height: 500px">
+    <div id="left_column" style="min-height: 500px">
         <?php
         foreach ($quests as $game => $ele) {
             $link = '/mod/rtw/view.php?id='.$course_module->id.'&c='.$ele->controller;
@@ -18,7 +18,8 @@
             <?php
             if($game != 'warmup' && isset($current_members[$ele->controller])) {
                 foreach ($current_members[$ele->controller] as $ele1) {
-                    echo '<div class="member pos'.$ele1->pos.'">'.$ele1->picture.'<span class="name">'.$ele1->firstname .' '. $ele1->lastname.'</span></div>';
+                    $fullname = $ele1->firstname .' '. $ele1->lastname;
+                    echo '<div data-ref="'.  htmlspecialchars($fullname).'" class="member pos'.$ele1->pos.'">'.$ele1->picture.'</div>';
                 }
             }
             ?>
@@ -34,3 +35,14 @@
         <?php echo $widget_player_info?>
     </div>
 </div>
+<script>
+$(document).ready(function() {
+    $.each($('.quest div.member'),function (){
+        var title = $(this).attr("data-ref");
+        $(this).frosty({
+            content: '<div style="display:block;padding:10px">'+title+'</div>',
+            html: true
+        });
+    });
+});
+</script>
