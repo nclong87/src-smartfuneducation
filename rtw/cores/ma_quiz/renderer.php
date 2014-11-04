@@ -3,6 +3,7 @@ use mod_rtw\db\game;
 use mod_rtw\core\player;
 use mod_rtw\core\date_utils;
 use mod_rtw\db\question_categories;
+use mod_rtw\db\game_ma_quiz;
 use mod_rtw\db\game_quiz;
 
 //TODO: This class is too long, any idea to break it smaller?
@@ -53,17 +54,17 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
      */
     private function create_game_entry($cat, $question, $game_player_id) {
         // Create a game quiz
-        $game_quiz = array(
+        $game_ma_quiz = array(
             'question_id' => $question->id,
             'game_player_id' => $game_player_id,
             'start_time' => date_utils::getCurrentDateSQL(),
-            'is_correct' => '0'
         );
         
-        $game_quiz_id = game_quiz::getInstance()->insert($game_quiz, true);
 
+        $game_quiz_id = game_quiz::getInstance()->insert($game_ma_quiz, true);
+        $game_ma_quiz_id = game_ma_quiz::getInstance()->insert($game_ma_quiz, true);
         // push the questions to $_SESSION
-        $question->game_quiz_id = $game_quiz_id;
+        $question->game_ma_quiz_id = $game_ma_quiz_id;
         $question->game_player_id = $game_player_id;        
         array_push($_SESSION[$cat]['questions'], $question);
     }
@@ -145,7 +146,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         if (!isset($question->show_time)) {
             $question->show_time = date_utils::getCurrentDateSQL();
             $_SESSION[$cat]['questions'][$i] = $question;
-            game_quiz::getInstance()->update($question->game_quiz_id, array('show_time' => $question->show_time));
+            game_ma_quiz::getInstance()->update($question->game_ma_quiz_id, array('show_time' => $question->show_time));
         }
 
         return $question;
@@ -296,22 +297,24 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             
             $data_update = array('submit_time' => $now->format(date_utils::$formatSQLDateTime));
             
-            if($point == 1) { //correct
-                $data_update['is_correct'] = 1;
+            if($point == 1) {
+                // Update coin and experience
                 $coin_id = player::getInstance()->change_coin($question->game_player_id, $coin);
                 $experience_id = player::getInstance()->incrExp($question->game_player_id, $coin);
+                $data_update['is_correct'] = 1;
                 $data_update['coin_id'] = $coin_id;
                 $data_update['experience_id'] = $experience_id;
                 $this->set_var('change_coin', $coin);
-                $style = 'color:green';
-            } else {
-                $style = 'color:red';
-            }
+            }            
+            // update user answer
+            $data_update['user_answer'] = json_encode($answers);
+
             
+            $style = '';
             $this->set_var('point', $point);
             $this->set_var('style', $style);
             $this->set_var('correct_answers', $this->get_correct_answers($question));
-            game_quiz::getInstance()->update($question->game_quiz_id, $data_update);
+            game_ma_quiz::getInstance()->update($question->game_ma_quiz_id, $data_update);
             
             unset($_SESSION['ma_quiz']['questions'][$seq]);
             $this->doRender('result.php');
