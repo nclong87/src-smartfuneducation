@@ -18,9 +18,9 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         $current_game = $this->initGame(300);
         
         // $num_question = 1;
-        //unset($_SESSION['picturequest']);
+        unset($_SESSION['picturequest']);
         if($current_game->is_new_game == true || !isset($_SESSION['picturequest'])) {
-            unset($_SESSION['picturequest']);
+            // unset($_SESSION['picturequest']);
             $picture = game_picturequiz::getInstance()->getRandomPicture($this->_player_info->current_level,1,'picturequest');
             if($picture == false) {
                 throw new coding_exception('Picture not found');
