@@ -5,19 +5,13 @@
     <h1 style="color: green">Bạn đã trả lời chính xác, bạn thật giống một chuyên gia!</h1>
     <?php } else { ?>
 
-    <h1 style="color: red">Đáp án của bạn chưa đúng!</h1>
-    <span>Đáp án đúng là: </span>
-    <table style="align:text">
-      <?php foreach ($correct_answers as $answer) { ?>
-
-                                                      <tr>
-          <td><?php echo $answer['question'] ?></td>
-         <td><?php echo $answer['answer'] ?></td>                                                      
-      <tr>
-      <?php } ?>
-    </table>
+     <h1 style="color: red">Đáp án của bạn chưa đúng! Đáp án đúng là: </h1>     
+     <h2 style="color: red">
+      <?php foreach ($correct_answers as $answer) { 
+         echo $answer['answer'] . " - " . $answer['question'] . "; ";
+      } ?>
     <?php } ?>
-
+    </h2>
     <?php if(isset($change_coin)) { ?>
         <i>Bạn được cộng thêm <b><?php echo $change_coin?></b> xu</i>
     <?php } ?>     
@@ -25,5 +19,5 @@
     </div>         
 </div>
 <script>
-    $('a.colorbox').colorbox.resize({'width':500, 'height': 600});
+         //('a.colorbox').colorbox.resize({'width':500, 'height': 600});
 </script>
