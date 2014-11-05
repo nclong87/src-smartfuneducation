@@ -18,7 +18,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         $current_game = $this->initGame(300);
         
         $num_question = 3;
-        //unset($_SESSION['docquest']);
+        unset($_SESSION['docquest']);
         if($current_game->is_new_game == true || !isset($_SESSION['docquest'])) {
             unset($_SESSION['docquest']);
             $doc = game_docquiz::getInstance()->getRandomDoc($this->_player_info->current_level,1,'docquest');
@@ -28,7 +28,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             }
             $doc->game_player_id = $current_game->id;
             $category = question_categories::getInstance()->findCategoryByLevelAndQuest($this->_player_info->current_level, 'docquest');
-            $questions = question_categories::getInstance()->get_doc_questions($category,$doc->url);
+            $questions = (question_categories::getInstance()->get_doc_questions($category,$doc->url));
             // rtw_debug($questions);
             $data = array(
                 'docquiz_id' => $doc->id,
@@ -54,7 +54,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
                 }
                 //$start_num+=10;
                 $time_rands[] = $rand_num;
-                $_SESSION['docquest']['questions'][$rand_num] = $obj;
+                $_SESSION['docquest']['questions'][$rand_num][] = $obj;
                 $i++;
             }
             $_SESSION['docquest']['time_rands'] = $time_rands;
@@ -78,10 +78,14 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         if(!isset($_SESSION['docquest']['questions'][$page])) {
             return;
         }
-        $question = $_SESSION['docquest']['questions'][$page];
+        $questions = (array)$_SESSION['docquest']['questions'][$page];
+        $question_index = rand(0, sizeof($questions) -1 );
+        $_SESSION['docquest']['question_index'] = $question_index;
+        // rtw_debug($questions);
+        $question = $questions[$question_index];
         if(!isset($question->show_time)) {
             $question->show_time = date_utils::getCurrentDateSQL();
-            $_SESSION['docquest']['questions'][$page] = $question;
+            $_SESSION['docquest']['questions'][$page][$question_index] = $question;
             game_docquiz::getInstance()->update($question->game_docquiz_id, array('show_time' => $question->show_time));
         } 
         $this->_log->log(array(__CLASS__,__FUNCTION__,$_SESSION['docquest']['questions'][$page]));
@@ -121,7 +125,14 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             if(!isset($_SESSION['docquest']['questions'][$page])) {
                 throw new Exception();
             }
-            $question = $_SESSION['docquest']['questions'][$page];
+            if(!isset($_SESSION['docquest']['question_index'])) {
+                $question_index = 0;
+            }else{
+                $question_index = $_SESSION['docquest']['question_index'];
+            }
+            $questions = (array) $_SESSION['docquest']['questions'][$page];
+            // rtw_debug($questions);
+            $question = $questions[$question_index];
             if(!isset($question->show_time)) {
                 throw new Exception();
             }

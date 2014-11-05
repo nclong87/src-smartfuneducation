@@ -89,7 +89,8 @@ class question_categories extends base {
     }
 
     function get_doc_questions($category,$doc_name,$export = true) {
-        return $this->get_video_questions($category, $doc_name, $export);
+        $qresults = $this->get_video_questions($category, $doc_name, $export);
+        // rtw_debug($qresults);
         return $qresults;
     }
 
