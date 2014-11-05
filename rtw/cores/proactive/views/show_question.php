@@ -20,6 +20,7 @@
     }
     function callAjaxAnswer() {
         var str = $( "#submitForm" ).serialize();
+        //ajaxLoadingBegin();
         $.ajax({
             type: 'POST',
             cache: false,

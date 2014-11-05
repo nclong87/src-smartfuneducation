@@ -48,5 +48,28 @@ class utils {
         }
         return $object;
     }
+    
+    /**
+     * 
+     * @param USER $userfrom User send message
+     * @param USER $userto User receive message
+     * @param String $message
+     * @param String $context_url
+     */
+    public static function sendMessage($userfrom,$userto,$message,$context_url) {
+        $eventdata = new stdClass();
+        $eventdata->component         = 'moodle'; //your component name
+        $eventdata->name              = 'instantmessage'; //this is the message name from messages.php
+        $eventdata->userfrom          = $userfrom;
+        $eventdata->userto            = $userto;
+        $eventdata->subject           = $message;
+        $eventdata->fullmessage       = $message;
+        $eventdata->fullmessageformat = FORMAT_PLAIN;
+        $eventdata->fullmessagehtml   = '';
+        $eventdata->smallmessage      = $message;
+        $eventdata->notification      = 1;
+        $eventdata->contexturl        = $context_url;
+        message_send($eventdata);
+    }
 
 }

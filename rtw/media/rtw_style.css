@@ -86,7 +86,7 @@ background-color: #fff;
 border-radius: 10px;
 display: block;
 float: left;
-height: 625px;
+min-height: 625px;
 padding: 10px;
 position: relative;
 width: 800px;
@@ -292,7 +292,18 @@ display: block;
 height: 70px;
 width: 54px;
 }
-
+.quest a.icon_proactive {
+background: url("/mod/rtw/pix/quest2.png") no-repeat scroll 0 -65px rgba(0, 0, 0, 0);
+display: block;
+height: 70px;
+width: 54px;
+}
+.quest a.icon_ranking {
+background: url("/mod/rtw/pix/quest2.png") no-repeat scroll 0 -65px rgba(0, 0, 0, 0);
+display: block;
+height: 70px;
+width: 54px;
+}
 
 .quest span.quest_name {
 bottom: 5px;
@@ -331,6 +342,22 @@ top: 450px;
 .quest.pos6 {
 left: 550px;
 top: 450px;
+}
+.quest.pos7 {
+left: 50px;
+top: 600px;
+}
+.quest.pos8 {
+left: 550px;
+top: 600px;
+}
+.quest.pos9 {
+left: 50px;
+top: 750px;
+}
+.quest.pos10 {
+left: 550px;
+top: 750px;
 }
 
 .quest .member {
@@ -475,4 +502,29 @@ left: 155px;
 position: absolute;
 top: 175px;
 width: 94px;
+}
+.blockui {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('/mod/rtw/pix/ajax-loader.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading {
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .blockui {
+    display: block;
 }

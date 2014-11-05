@@ -1,5 +1,5 @@
 <div style="display: block">
-    <div id="left_column" style="min-height: 500px">
+    <div id="left_column" style="min-height: 750px">
         <?php
         foreach ($quests as $game => $ele) {
             $link = '/mod/rtw/view.php?id='.$course_module->id.'&c='.$ele->controller;
@@ -28,7 +28,7 @@
         }
         ?>
         <div style="position: absolute; width: 100%; text-align: center; bottom: 10px;">
-            <a  class="button" href="/mod/rtw/view.php?id=<?php echo $course_module->id?>&c=map">Trở về Map</a>
+            <a href="/mod/rtw/view.php?id=<?php echo $course_module->id?>&c=map"><button>Trở về Map</button></a>
         </div>
     </div>
     <div id="right_column">
