@@ -1,8 +1,14 @@
+<?php
+$url = $picture->url;
+if (strpos($url,'://') == false) {
+    $url = $config_rtw->paths->picture . $url;
+}
+?>
 <div id="rtw_content" style="display: block;text-align: center">
     <h2>Hãy xem ảnh bên dưới, câu hỏi sẽ hiện ra sau <span id="countdown-timer"><?php echo ($picture->countdown>0 ? $picture->countdown : 30) ?></span> giây</h2>
     <div id="picture_content">
 
-        <img src="<?php echo $picture->url?>" />
+        <img src="<?php echo $url?>" style='max-height: 800px; max-width: 600px' />
 
     </div>
     <br clear="all">
@@ -25,7 +31,8 @@ function showQuestion(time) {
                     html:response,
                     width : "90%",
                     'onClosed' : function () {
-                        location.reload();
+                        showQuestion();
+                        // location.href = "/mod/rtw/view.php?id="+course_module+"&c=picturequest&a=intro";
                     }
                 });
             }
@@ -33,7 +40,7 @@ function showQuestion(time) {
     });
 }
 $(document).ready(function(){
-    console.log(rand_numbers);
+    // console.log(rand_numbers);
     var counter = parseInt($("#countdown-timer").text());
     var done = false;
     var interval = setInterval(function(){
