@@ -29,6 +29,13 @@
 <img src="/mod/rtw/pix/footerbgr.png" style="width: 99%; position: fixed; bottom: 0px; left: 0px; z-index: -1;"/>
 <div id="rtw-footer">©2014 smartfuneducation.com</div>
 <script type="text/javascript">
+        function ajaxLoadingBegin() {
+            jQuery("body").addClass("loading");
+        }
+        jQuery(document).on({
+            //ajaxStart: function() { jQuery("body").addClass("loading");    },
+            ajaxStop: function() { jQuery("body").removeClass("loading"); }    
+        });
         jQuery(document).ready(function () {
             var offset = 220;
             var duration = 500;
@@ -56,3 +63,4 @@
         });
     </script>
 <?php echo $OUTPUT->standard_end_of_body_html() ?>
+<div class="blockui"><!-- Place at bottom of page --></div>
