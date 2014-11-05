@@ -29,6 +29,7 @@
 </div>
 <script>
     var remain_seconds = <?php echo $remain_seconds?> ;
+
     function doIgnore() {
         $.colorbox.close();
     }
@@ -48,7 +49,8 @@
                         'onClosed' : function () {
                             // video.play();
                             // location.reload();
-                            location.href = "/mod/rtw/view.php?id="+course_module+"&c=picturequest&a=intro";
+                            showQuestion();
+                            // location.href = "/mod/rtw/view.php?id="+course_module+"&c=picturequest&a=intro";
                         }
                     });
                 }

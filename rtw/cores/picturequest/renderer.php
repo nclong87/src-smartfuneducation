@@ -74,10 +74,26 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
     
     public function render_question() {
         // rtw_debug($_SESSION['picturequest']['questions']);
-        $question = $_SESSION['picturequest']['questions'][0];
+        $questions = (array)$_SESSION['picturequest']['questions'];
+        if(sizeof($questions) == 0) return;
+        if(!isset($_SESSION['picturequest']['question_index'])) {
+            $question_index = 0;
+        }else{
+            $question_index = $_SESSION['picturequest']['question_index'];
+            $question_index ++;
+        }
+        if ($question_index > sizeof($questions) - 1) {
+            // Done
+            $this->_file = 'no_more_question.php';
+            $this->doRender();
+            return;
+
+        }
+        $_SESSION['picturequest']['question_index'] = $question_index;
+        $question = $questions[$question_index];
         if(!isset($question->show_time)) {
             $question->show_time = date_utils::getCurrentDateSQL();
-            $_SESSION['picturequest']['questions'][0] = $question;
+            $_SESSION['picturequest']['questions'][$question_index] = $question;
             game_picturequiz::getInstance()->update($question->game_picturequiz_id, array('show_time' => $question->show_time));
         } 
         $this->_log->log(array(__CLASS__,__FUNCTION__,$_SESSION['picturequest']['questions'][0]));
@@ -113,10 +129,20 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
                 $error_message = 'Bạn chưa chọn đáp án!';
                 throw new Exception();
             }
-            if(!isset($_SESSION['picturequest']['questions'][0])) {
+            
+            if(!isset($_SESSION['picturequest']['question_index'])) {
+                $question_index = 0;
+            }else{
+                $question_index = $_SESSION['picturequest']['question_index'];
+            }
+
+            if(!isset($_SESSION['picturequest']['questions'][$question_index])) {
                 throw new Exception();
             }
-            $question = $_SESSION['picturequest']['questions'][0];
+            $questions = (array) $_SESSION['picturequest']['questions'];
+            // rtw_debug($questions);
+            $question = $questions[$question_index];
+
             if(!isset($question->show_time)) {
                 throw new Exception();
             }
@@ -148,7 +174,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             $this->set_var('style', $style);
             game_picturequiz::getInstance()->update($question->game_picturequiz_id, $data_update);
             // unset($_SESSION['picturequest']['questions'][0]);
-            unset($_SESSION['picturequest']);
+            // unset($_SESSION['picturequest']);
             $this->doRender('result.php');
         } catch (Exception $exc) {
             $this->_log->log($exc, 'error');
