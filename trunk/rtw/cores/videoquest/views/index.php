@@ -17,6 +17,7 @@ var video = document.getElementById("video-active");
 var current_time = 0;
 var counter;
 function showQuestion(time) {
+    ajaxLoadingBegin();
     $.ajax({
         type: 'GET',
         cache: false,

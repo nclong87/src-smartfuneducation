@@ -40,3 +40,7 @@ $string['pluginadministration'] = 'rtw administration';
 $string['pluginname'] = 'rtw';
 
 $string['eventdebug'] = 'Debug';
+
+//proactive
+$string['proactive_message_subject'] = '[Proactive] Bạn nhận được lời đề nghị đánh giá';
+$string['proactive_message_fullmessage'] = '[Proactive] Bạn nhận được lời đề nghị đánh giá';

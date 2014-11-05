@@ -26,7 +26,10 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
     
     public function render_level() {
         global $OUTPUT;
-        $level = required_param('l', PARAM_INT);
+        $level = optional_param('l',0,PARAM_INT);
+        if($level == 0) {
+            $level = $this->_player_info->current_level;
+        }
         if($level > $this->_player_info->current_level) {
             redirect('/mod/rtw/view.php?id='.$this->course_module->id.'&c=map', 'Level của bạn chưa đủ để chơi map này, hay cố gắng lên nhé :)');
         }

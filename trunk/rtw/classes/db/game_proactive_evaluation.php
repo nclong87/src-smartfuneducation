@@ -24,4 +24,8 @@ class game_proactive_evaluation extends base {
         parent::__construct($tableName, $primaryKey);
     }
     
+    public function findByProactiveGameAndPlayer($player_id,$game_proactive_id) {
+        return $this->_db->get_records_sql('select * from mdl_rtw_game_proactive_evaluation t0 inner join mdl_rtw_player_game t1 on t0.game_player_id = t1.id where t1.player_id = ? and t0.game_proactive_id = ?', array($player_id,$game_proactive_id));
+    }
+    
 }

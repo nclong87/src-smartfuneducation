@@ -3,6 +3,7 @@ use mod_rtw\db\game_proactive;
 use mod_rtw\db\question_categories;
 use mod_rtw\core\date_utils;
 use mod_rtw\db\player_activities;
+use mod_rtw\db\player;
 class mod_rtw_renderer extends mod_rtw_renderer_base {
     public function __construct(\moodle_page $page, $target) {
         parent::__construct($page, $target);
@@ -22,10 +23,12 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         if($current_game->is_new_game == true || !isset($_SESSION['proactive'])) {
             // Lay danh sach cau hoi theo category trong kho cau hoi moodle
             unset($_SESSION['proactive']);
+            $_SESSION['proactive']['current_game'] = $current_game;
             $category = question_categories::getInstance()->findCategoryByLevelAndQuest($this->_player_info->current_level, 'proactive');
             $questions = question_categories::getInstance()->get_questions_category($category,$num_question);
             $data = array(
-                'game_player_id' => $current_game->id
+                'game_player_id' => $current_game->id,
+                'text_question' => ''
             );
             foreach ($questions as $obj) {
                 $data['question_id'] = $obj->id;
@@ -36,6 +39,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
                 $_SESSION['proactive']['questions'][] = $obj;
             }
         } 
+        //rtw_debug($_SESSION['proactive']['questions']);
         redirect('/mod/rtw/view.php?id='.$this->course_module->id.'&c=proactive&a=question','Đang lấy danh sách câu hỏi, vui lòng đợi trong giây lát...');
     }
     
@@ -45,7 +49,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         $error_message = '';
         try {
             if(!isset($_SESSION['proactive']['questions'][$seq])) {
-                unset($_SESSION['proactive']);
+                //unset($_SESSION['proactive']);
                 redirect('/mod/rtw/view.php?id='.  $this->course_module->id.'&c=proactive&a=request','Đang chuyển trang mời người chơi đánh giá trả lời của bạn...');
             }
             $question = $_SESSION['proactive']['questions'][$seq];
@@ -101,6 +105,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
                 throw new Exception();
             }
             $data_update = array(
+                'text_question' => $question->questiontext,
                 'answer' => $txtAnswer,
                 'submit_time' => $now->format(date_utils::$formatSQLDateTime)
             );
@@ -124,15 +129,38 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         $table = new html_table();
         $table->head = array('','Username','Họ tên', 'Họat động gần nhất','');
         foreach ($users as $user) {
+            if($user->player_id == $this->_player_info->id) {
+                continue;
+            }
+            if(isset($_SESSION['proactive']['request'][$user->id])) {
+                $button = '<button disabled=true>Mời đánh giá</button>';
+            } else {
+                $button = '<button onclick="invite('.$user->id.',this)">Mời đánh giá</button>';
+            }
             $table->data[] = array(
                 $OUTPUT->user_picture($user, array('size'=>30)),
                 $user->username,
                 $user->firstname .' '. $user->lastname,
                 $user->recent_act,
-                '<button disabled=true>Mời đánh giá</button>'
+                $button
             );
         }
         $this->set_var('table', $table);
         $this->doRender('request.php');
+    }
+    
+    public function render_request_user() {
+        if(!isset($_SESSION['proactive']['current_game'])) {
+            die('error1');
+        }
+        $current_game = $_SESSION['proactive']['current_game'];
+        $user_id = required_param('uid', PARAM_INT);
+        $touser = player::getInstance()->getUserById($user_id);
+        if($touser == null) {
+            die('error2');
+        }
+        $context_url = "/mod/rtw/view.php?id={$this->course_module->id}&c=evaluation&a=intro&proactive_game=".$current_game->id;
+        rtw_send_message($this->user, $touser, get_string('proactive_message_subject', 'rtw'), $context_url);
+        $_SESSION['proactive']['request'][$user_id] = true;
     }
 }
