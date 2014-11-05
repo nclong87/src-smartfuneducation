@@ -430,7 +430,10 @@ $(document).ready(function(){
         console.log(PDFView);
         console.log(page + ' ' + PDFView.previousPageNumber + ' ' + rand_numbers);
         if($.inArray(page,rand_numbers) >=0) {
-            showQuestion(page);
+          var max_page = parseInt($("#pageNumber").attr('max'));
+            if (max_page > 1) {
+              showQuestion(page);
+            }
         }
       }
       
@@ -447,24 +450,30 @@ $(document).ready(function(){
     //     }
     // });
 
-
+    var willShowQuestion = false;
     window.addEventListener('documentload', function documentloaded(evt) {
       var max_page = parseInt($("#pageNumber").attr('max'));
       if (max_page == 1 && $.inArray(max_page,rand_numbers)>=0) {
         if($('div#viewerContainer').hasScrollBar()){
-          console.log('hasScrollBar');
+          // console.log('hasScrollBar');
+          $('div#viewerContainer').scrollTop(0);
           $('div#viewerContainer').bind('scroll', function() {
               if($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight) {
-                showQuestion(max_page);
-                  // setTimeout(function() { showQuestion(max_page); },3000)
+                // showQuestion(max_page);
+                  if (!willShowQuestion) {
+                    setTimeout(function() { showQuestion(1); },5000)
+                    willShowQuestion = true;  
+                  };
               }
           });
         }else{
-          setTimeout(function() { showQuestion(1); },10000)
+          if (!willShowQuestion) {
+            setTimeout(function() { showQuestion(1); },30000)
+            willShowQuestion = true;  
+          };
+          
         }
       }
-      
-      
     }, true);
 
 
