@@ -304,6 +304,12 @@ display: block;
 height: 70px;
 width: 54px;
 }
+.quest a.icon_picturequest {
+background: url("/mod/rtw/pix/quest2.png") no-repeat scroll 0 -65px rgba(0, 0, 0, 0);
+display: block;
+height: 70px;
+width: 54px;
+}
 
 .quest span.quest_name {
 bottom: 5px;

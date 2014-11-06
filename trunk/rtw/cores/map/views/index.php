@@ -28,6 +28,7 @@
                     }
                 }
                 ?>
+                <span style="display: block; position: absolute; width: 150px; text-align: center; left: -36px; color: red; font-weight: bold; z-index: 999; bottom: -90px;"><?php echo $config_rtw->levels->{'lv'.$i}->name ?></span>
             </div>
                 <?php
             }
