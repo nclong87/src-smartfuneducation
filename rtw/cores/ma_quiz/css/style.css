@@ -45,7 +45,7 @@ ul.items {
     text-align: center;
     cursor: all-scroll;
 }
-.dockp {
+.dock {
     width: 300px;
     float: left;        
     height: 30px;
