@@ -149,8 +149,9 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
      * @return  str  $hint  Question hint, return empty string if there's no hint
      **/
     private function get_hint($question) {
-        if (!empty($question->options->hints)) {
-            $hint = $question->options->hints[0];
+
+        if (!empty($question->hints)) {
+            $hint = strip_tags($question->hints[1]->hint);
         } else {
             $hint = "";
         }

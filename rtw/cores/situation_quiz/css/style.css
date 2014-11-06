@@ -2,7 +2,7 @@
     padding: 20px;
 }
 #submitForm {
-    padding: 20px;
+    padding: 0 20px;
 }
 .questionText {
     margin: 15px;
@@ -10,4 +10,17 @@
 #essay-answer-box {
     width: 500px;
     height: 400px;
- }
+}
+
+table.result tr td, th {
+    border: solid 2px #999;
+    padding: 10px 40px;
+    min-width: 150px;
+}
+
+table.result th {
+    font-weight: bold;
+}
+table.self-eval tr td {
+    padding: 0px 10px;
+}

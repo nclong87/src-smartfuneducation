@@ -1,27 +1,39 @@
 <div id="rtw_content">
     <h1 class="questionText"><?php echo $question->questiontext?></h1>
     <form id="submitForm">
-        <table>
+        <table class="result">
            <tr>
-               <td>
-                    <textarea id="essay"><?php echo $essay ?></textarea>
-               </td>
-               <td>
-                    <textarea id="hint"><?php echo $hint?></textarea>
-               </td>
+               <th>
+                    Câu trả lời của bạn
+               </th>
+               <th>
+                    Gợi ý 
+               </th>
            </tr>
            <tr>
+               <td>
+                    <?php echo $essay ?>
+               </td>
+               <td>
+                    <?php echo $hint?>
+               </td>
+           </tr>
+         </table>
+         <br/>
+         <table class="self-eval">
+           <tr>
                <td>              
-                   <input type="radio" name="evaluation" value="1"/> Hoàn toàn không tương thích
+                   <input type="radio" name="evaluation" value="1"/>Hoàn toàn không tương thích
                </td>
                <td>
-                   <input type="radio" name="evaluation" value="2"/> Tương thích một phần
+                   <input type="radio" name="evaluation" value="2"/>Tương thích một phần
                </td>
                <td>
-                   <input type="radio" name="evaluation" value="3"/> Hoàn toàn tương thích 
+                   <input type="radio" name="evaluation" value="3"/>Hoàn toàn tương thích 
                </td>
            </tr>
         </table>
+        <br/>
         <input type="button" value="Bỏ qua" onclick="doIgnore()"/>
         <input type="button" value="Trả lời" style="margin-left: 20px" onclick="doEvalAnswer()"/>
     </form>
