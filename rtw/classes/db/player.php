@@ -89,5 +89,29 @@ class player extends base {
         \mod_rtw\db\player::getInstance()->update($player_info->id, $data);
         return $exp_id;
     }
+    
+    /**
+     * 
+     * @param object $player_info Table mdl_rtw_player 
+     * @param Integer $num_turn So lan quay so cong (tru)
+     * @param Long $game_id Id game
+     */
+    public function changeTurn($player_info,$num_turn,$game_id = null) {
+        $turn_before = $player_info->lottery_turn;
+        $lottery_turn_after = $player_info->lottery_turn +$num_turn;
+        $data = array(
+            'player_game_id' => $game_id,
+            'turn_change' => $num_turn,
+            'create_time' => date_utils::getCurrentDateSQL(),
+            'turn_before' => $turn_before,
+            'turn_after' => $lottery_turn_after
+        );
+        \mod_rtw\db\lotteryturn::getInstance()->insert($data);
+        $data = array(
+            'lottery_turn' => $lottery_turn_after,
+            'last_update' => date_utils::getCurrentDateSQL()
+        );
+        \mod_rtw\db\player::getInstance()->update($player_info->id, $data);
+    }
 }
 

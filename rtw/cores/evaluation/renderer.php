@@ -53,7 +53,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         $this->set_var('coin', $coin);
         try {
             if($point_section_1 < 0 || $point_section_1 > 3 || $point_section_2 < 0 || $point_section_2 > 3 || $point_section_3 < 0 || $point_section_3 > 3) {
-                $error_message = 'Vui lòng nhập số điểm từ 0 đến 3';
+                $error_message = 'Vui lòng chỉ nhập điểm từ 0 đến 3';
                 throw new Exception(get_string('data input invalid', 'rtw'));
             }
             if(!isset($_SESSION['evaluation'])) {
@@ -102,9 +102,13 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
                 }
                 $this->_log->log(array(__CLASS__,__FUNCTION__,'$avg='.$avg));
                 // Neu diem trung binh >= 6.3 --> Cong 5 coin va 5 xp
+                $num_exp = 6;
+                $num_coin = 6;
+                $num_ticketlottery = 1;
                 if($avg >= 6.3) {
-                    player::getInstance()->change_coin($player_request, $proactive_game->id, 5);
-                    player::getInstance()->incrExp($player_request, $proactive_game->id, 5);
+                    player::getInstance()->change_coin($player_request, $proactive_game->id, $num_coin);
+                    player::getInstance()->incrExp($player_request, $proactive_game->id, $num_exp);
+                    player::getInstance()->changeTurn($player_request, $num_ticketlottery,$proactive_game->id);
                     game::getInstance()->update($proactive_game->id, array('status' => 2));
 
                 } 
@@ -122,7 +126,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
                 $message = sprintf('[Proactive] Xin chúc mừng bạn đã chinh phục thành công quest này với số điểm trung bình là %2f',$avg);
                 rtw_send_message($this->user, $touser, $message, '');
 
-                $message = sprintf('[System] Xin chúc mừng, bạn được nhận thêm %d xu và %d điểm kinh nghiệm',5,5);
+                $message = sprintf('[System] Xin chúc mừng, bạn được nhận thêm %d xu, %d điểm kinh nghiệm và %d lần quay số may mắn!',$num_coin,$num_exp,$num_ticketlottery);
                 rtw_send_message($this->user, $touser, $message, '');
             }
                 

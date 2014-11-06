@@ -203,7 +203,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             $question = $this->set_show_time('ma_quiz', $seq);            
             $this->_log->log(array(__CLASS__,__FUNCTION__,$_SESSION['ma_quiz']['questions'][$seq]));
             
-            $remain_seconds = $this->calculate_remaining_time($question->show_time);
+            $remain_seconds = $this->calculate_remaining_time($question->show_time,60);
             $answers = $this->get_answers($question);
             $subquestions = $this->get_and_shuffle_subquestions($question);
 

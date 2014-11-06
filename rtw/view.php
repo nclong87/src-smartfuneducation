@@ -66,7 +66,7 @@ $PAGE->set_pagelayout('login');
 
 //$intro = new rtw_intro(12345);
 //echo $rtwoutput->render($intro);
-$controller = strtolower(optional_param('c', 'intro', PARAM_TEXT));
+$controller = strtolower(optional_param('c', 'map', PARAM_TEXT));
 $action = 'render_'.strtolower(optional_param('a', 'index', PARAM_TEXT));
 require "renderer_base.php";
 require "cores/{$controller}/renderer.php";
