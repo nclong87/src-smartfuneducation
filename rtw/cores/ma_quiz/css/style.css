@@ -30,13 +30,13 @@ ul.items {
     font-weight: bold;
     line-height: 30px;
     float: left;
-    pading: 5px;
+    padding: 5px;
     text-align: center;
     width: 60px;
 }
 .items li {
     list-style: none;
-    width: 180px;
+    width: 300px;
     margin: 5px 20px;
     line-height: 30px;
     height: 30px;
@@ -47,7 +47,7 @@ ul.items {
     cursor: all-scroll;
 }
 .dock {
-    width: 180px;
+    width: 300px;
     float: left;        
     height: 30px;
     list-style: none;
