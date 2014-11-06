@@ -6,7 +6,7 @@
         <input type="button" value="Bỏ qua" onclick="doIgnore()"/>
         <input type="button" value="Trả lời" style="margin-left: 20px" onclick="doAnswer()"/>
         <br>
-        <i>Thời gian trả lời : <b id="remain_seconds"><?php echo $remain_seconds?></b> giây</i>
+        <!--i>Thời gian trả lời : <b id="remain_seconds"><?php echo $remain_seconds?></b> giây</i-->
     </form>
 </div>
 <script>
@@ -62,7 +62,7 @@
         }
     }
     $(document).ready(function() {
-        countDown();
+        //countDown();
         $("#txtAnswer").focus();
     });
 </script>
