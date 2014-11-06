@@ -461,7 +461,7 @@ function rtw_send_message($userfrom,$userto,$message,$context_url) {
     $eventdata->fullmessageformat = FORMAT_PLAIN;
     $eventdata->fullmessagehtml   = '';
     $eventdata->smallmessage      = $message;
-    $eventdata->notification      = 1;
+    $eventdata->notification      = 0;
     $eventdata->contexturl        = $context_url;
     message_send($eventdata);
 }
