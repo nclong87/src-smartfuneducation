@@ -61,10 +61,10 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             $this->_log->log(array(__CLASS__,__FUNCTION__,$_SESSION['proactive']['questions'][$seq]));
             $total_time = 600;
             $remain_seconds = $total_time - date_utils::getSecondsBetween(new DateTime($question->show_time), new DateTime());
-            if($remain_seconds <= 0) {
+            /*if($remain_seconds <= 0) {
                 $error_message = 'Câu hỏi đã hết thời gian trả lời!';
                 throw new Exception();
-            }
+            }*/
             //unset($_SESSION['proactive']['questions'][$time]);
             $this->set_var('question', $question);            
             $this->set_var('remain_seconds', $remain_seconds);
@@ -100,10 +100,10 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             }
             $now = new DateTime();
             $remain_seconds = date_utils::getSecondsBetween(new DateTime($question->show_time), $now);
-            if($remain_seconds <= 0) {
+            /*if($remain_seconds <= 0) {
                 $error_message = 'Câu hỏi đã hết thời gian trả lời!';
                 throw new Exception();
-            }
+            }*/
             $data_update = array(
                 'text_question' => $question->questiontext,
                 'answer' => $txtAnswer,

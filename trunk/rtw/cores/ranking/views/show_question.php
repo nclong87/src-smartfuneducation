@@ -83,9 +83,9 @@
                 alert("Vui lòng nhập đủ các lựa chọn!");
                 return;
             } else {
-                var reg = new RegExp('[1-7]');
+                var reg = new RegExp('[1-12]');
                 if(reg.test(v) === false){
-                    alert("Lựa chọn phải là kiểu số 1-7");
+                    alert("Lựa chọn phải là kiểu số 1-12");
                     return;
                 }
             }
