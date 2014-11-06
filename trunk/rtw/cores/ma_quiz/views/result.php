@@ -8,7 +8,7 @@
      <h1 style="color: red">Đáp án của bạn chưa đúng! Đáp án đúng là: </h1>     
      <h2 style="color: red">
       <?php foreach ($correct_answers as $answer) { 
-         echo $answer['answer'] . " - " . $answer['question'] . "; ";
+         echo $answer['answer'] . " - " . $answer['question'] . "; <br/>";
       } ?>
     <?php } ?>
     </h2>
