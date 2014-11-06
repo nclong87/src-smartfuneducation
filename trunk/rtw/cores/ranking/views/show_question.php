@@ -14,7 +14,7 @@
                         </td>
                         <td>
                 <div id="ranking" >
-                    <input type="text" name="options[<?php echo $option->id ?>]" style="width: 50px; margin-left : 50%;"
+                    <input type="number" min="1" max="12" name="options[<?php echo $option->id ?>]" style="width: 50px; margin-left : 50%;"
                        id="option_<?php echo $option->id ?>" />
                 </div>
                         </td>
@@ -82,13 +82,7 @@
             if(v === ''){
                 alert("Vui lòng nhập đủ các lựa chọn!");
                 return;
-            } else {
-                var reg = new RegExp('[1-12]');
-                if(reg.test(v) === false){
-                    alert("Lựa chọn phải là kiểu số 1-12");
-                    return;
-                }
-            }
+            } 
         }
         clearTimeout(counter);
         blockUI("Đang kiểm tra dữ liệu, vui lòng chờ đợi trong giây lát...");
