@@ -14,7 +14,7 @@
                         </td>
                         <td>
                 <div id="ranking" >
-                    <input type="text" name="options[<?php echo $option->id ?>]" style="width: 50px; margin-left : 50%;"
+                    <input type="text" pattern="\d*" name="options[<?php echo $option->id ?>]" style="width: 50px; margin-left : 50%;"
                        id="option_<?php echo $option->id ?>" />
                 </div>
                         </td>
