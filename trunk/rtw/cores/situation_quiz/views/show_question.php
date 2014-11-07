@@ -7,13 +7,12 @@
         <input type="button" value="Bỏ qua" onclick="doIgnore()"/>
         <input type="button" value="Trả lời" style="margin-left: 20px" onclick="doEval()"/>
         <br>
-        <i>Thời gian trả lời : <b id="remain_seconds"><?php echo $remain_seconds?></b> giây</i>
     </form>
 </div>
      
 <script>
     var seq = <?php echo $seq?> ;
-    var remain_seconds = <?php echo $remain_seconds?> ;
+// var remain_seconds = <?php echo $remain_seconds?> ;
     var course_module = '<?php echo $course_module->id?>';
     var counter;
                                                      
@@ -63,21 +62,8 @@
             return;
         }
         
-        clearTimeout(counter);
         blockUI("Đang kiểm tra dữ liệu, vui lòng chờ đợi trong giây lát...");
         setTimeout("callAjaxEvaluation()",500);
-    }
-                                                     
-    function countDown() {
-        if(remain_seconds > 0) {
-            remain_seconds--;
-            $("#remain_seconds").text(remain_seconds);
-            counter = setTimeout("countDown()",1000);
-        } else {
-            doIgnore();
-        }
-    }
-    $(document).ready(function() {
-        countDown();
-    });
+    }                                                     
+
 </script>

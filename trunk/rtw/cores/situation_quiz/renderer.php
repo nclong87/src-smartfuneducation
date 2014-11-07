@@ -1,3 +1,4 @@
+
 <?php
 use mod_rtw\db\game;
 use mod_rtw\core\player;
@@ -191,12 +192,12 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             $show_time_is_set = $this->check_question_show_time($question);
 
             // FIXME: Refactor this function 
-            $now = new DateTime();
-            $remain_seconds = date_utils::getSecondsBetween(new DateTime($question->show_time), $now);
-            if($remain_seconds <= 0) {                
-                $error_message = 'Câu hỏi đã hết thời gian trả lời!';
-                throw new Exception();
-            }
+            // $now = new DateTime();
+            // $remain_seconds = date_utils::getSecondsBetween(new DateTime($question->show_time), $now);
+            // if($remain_seconds <= 0) {                
+            //   $error_message = 'Câu hỏi đã hết thời gian trả lời!';
+            //    throw new Exception();
+            // }
     
             $this->set_var('seq', $seq);
             $this->set_var('essay', $essay);
@@ -226,8 +227,8 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             $question = $this->set_show_time(self::QUIZ_CATEGORY, $seq);            
             $this->_log->log(array(__CLASS__,__FUNCTION__,$_SESSION[self::QUIZ_CATEGORY]['questions'][$seq]));
             
-            $remain_seconds = $this->calculate_remaining_time($question->show_time);
-            $this->set_Var('remain_seconds', $remain_seconds);
+            // $remain_seconds = $this->calculate_remaining_time($question->show_time);
+            // $this->set_Var('remain_seconds', $remain_seconds);
             $this->set_Var('question', $question);
             $this->doRender('show_question.php');
             
