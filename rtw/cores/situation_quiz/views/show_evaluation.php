@@ -1,5 +1,5 @@
 <div id="rtw_content">
-    <h1 class="questionText"><?php echo $question->questiontext?></h1>
+    <h1 class="questionText">Kết quả giải đáp tình huống</h1>
     <form id="submitForm">
         <table class="result">
            <tr>
@@ -7,7 +7,7 @@
                     Câu trả lời của bạn
                </th>
                <th>
-                    Gợi ý 
+                    Đáp án gợi ý cho tình huống
                </th>
            </tr>
            <tr>
@@ -22,6 +22,12 @@
          <br/>
          <table class="self-eval">
            <tr>
+              <td>
+                 <div style="font-weight: bold">Bạn đánh giá thế nào về đáp án của bạn?<br></div>
+                 
+              </td>
+           </tr>
+           <tr>
                <td>              
                    <input type="radio" name="evaluation" value="1"/>Hoàn toàn không tương thích
                </td>
@@ -35,7 +41,7 @@
         </table>
         <br/>
         <input type="button" value="Bỏ qua" onclick="doIgnore()"/>
-        <input type="button" value="Trả lời" style="margin-left: 20px" onclick="doEvalAnswer()"/>
+        <input type="button" value="Đánh giá" style="margin-left: 20px" onclick="doEvalAnswer()"/>
     </form>
 </div>
 <script>     
