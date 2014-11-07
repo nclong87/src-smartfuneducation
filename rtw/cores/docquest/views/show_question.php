@@ -1,5 +1,5 @@
 <div style="display: block;text-align: left;padding: 20px;width: 94%">
-    <h1><?php echo $question->questiontext?></h1>
+    <h1 id="question-title"><?php echo $question->questiontext?></h1>
     <form id="submitForm">
         <?php
         foreach ($question->options->answers as $option) {
@@ -28,6 +28,7 @@
     </form>
 </div>
 <script>
+    var questionPage = <?php echo $page?>;
     var time = <?php echo $time?> ;
     var remain_seconds = <?php echo $remain_seconds?> ;
     function doIgnore() {
@@ -48,6 +49,7 @@
                         html:response,
                         'onClosed' : function () {
                             // video.play();
+                            showQuestion(questionPage);
                         }
                     });
                 }
