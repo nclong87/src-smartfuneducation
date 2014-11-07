@@ -79,8 +79,23 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             return;
         }
         $questions = (array)$_SESSION['docquest']['questions'][$page];
-        $question_index = rand(0, sizeof($questions) -1 );
-        $_SESSION['docquest']['question_index'] = $question_index;
+        // rtw_debug($questions);
+        // $question_index = rand(0, sizeof($questions) -1 );
+        if(sizeof($questions) == 0) return;
+        if(!isset($_SESSION['docquest']['question_indexes'][$page])) {
+            $question_index = 0;
+        }else{
+            $question_index = $_SESSION['docquest']['question_indexes'][$page];
+            $question_index ++;
+        }
+        if ($question_index > sizeof($questions) - 1) {
+            // Done
+            // $this->_file = 'no_more_question.php';
+            // $this->doRender();
+            return;
+
+        }
+        $_SESSION['docquest']['question_indexes'][$page] = $question_index;
         // rtw_debug($questions);
         $question = $questions[$question_index];
         if(!isset($question->show_time)) {
@@ -108,6 +123,7 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
         $this->set_var('is_multichoice', $is_multichoice);
         $this->set_var('time', $page);
         $this->set_var('remain_seconds', $remain_seconds);
+        $this->set_var('page', $page);
         $this->_file = 'show_question.php';
         $this->doRender();
     }
@@ -125,10 +141,10 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             if(!isset($_SESSION['docquest']['questions'][$page])) {
                 throw new Exception();
             }
-            if(!isset($_SESSION['docquest']['question_index'])) {
+            if(!isset($_SESSION['docquest']['question_indexes'][$page])) {
                 $question_index = 0;
             }else{
-                $question_index = $_SESSION['docquest']['question_index'];
+                $question_index = $_SESSION['docquest']['question_indexes'][$page];
             }
             $questions = (array) $_SESSION['docquest']['questions'][$page];
             // rtw_debug($questions);
@@ -146,9 +162,11 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
             $point = 0;
             foreach ($answers as $ele) {
                 if(isset($question->options->answers[$ele])) {
+                    // rtw_debug($question->options->answers[$ele]);
                     $point+= $question->options->answers[$ele]->fraction;
                 }
             }
+
             $data_update = array('submit_time' => $now->format(date_utils::$formatSQLDateTime));
             if($point == 1) { //correct
                 $data_update['is_correct'] = 1;
@@ -159,11 +177,16 @@ class mod_rtw_renderer extends mod_rtw_renderer_base {
                 $style = 'color:green';
             } else {
                 $style = 'color:red';
+                $answers = [];
+                foreach ($question->options->answers as $answer) {
+                    if($answer->fraction > 0) $answers[] = $answer;
+                }
+                $this->set_var('answers', $answers);    
             }
             $this->set_var('point', $point);
             $this->set_var('style', $style);
             game_docquiz::getInstance()->update($question->game_docquiz_id, $data_update);
-            unset($_SESSION['docquest']['questions'][$page]);
+            // unset($_SESSION['docquest']['questions'][$page]);
             $this->doRender('result.php');
         } catch (Exception $exc) {
             $this->_log->log($exc, 'error');

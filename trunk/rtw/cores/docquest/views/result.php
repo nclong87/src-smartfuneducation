@@ -7,6 +7,10 @@
     } else {
     ?>
     <h1 style="color: red">Đáp án của bạn chưa đúng!</h1>
+    <h3>Đáp án đúng là: </h3>
+    <?php foreach ($answers as $answer):?>
+        <h3><?php echo $answer->answer?></h3>
+    <?php endforeach?>
     <?php  
     }
     ?>
